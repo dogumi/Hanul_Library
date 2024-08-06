@@ -1,6 +1,7 @@
 package com.project.library.member.controller;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -99,12 +100,48 @@ public class MemberController {
 	@PostMapping("findId.me")
 	public String findId(@ModelAttribute Member m, Model model) {
 		Member id = mService.findId(m);
-		System.out.println(id);
 		if(id != null) {
 			model.addAttribute("mem", id);
-			return "findIdSuccess";
+			return "findPwdSuccess";
 		} else {
 			return "findIdFail";
+		}
+	}
+	
+	// 비밀번호 찾기 페이지로 이동
+	@GetMapping("findPwdView.me")
+	public String findPwdView() {
+		return "findPwdView";
+	}
+	
+	// 비밀번호 찾기
+	@PostMapping("findPwd.me")
+	public String findPwd(@ModelAttribute Member m, Model model) {
+		Member result = mService.findPwd(m);
+		if(result != null) {
+			model.addAttribute("mem", result);
+			return "updatePwd";
+		} else {
+			return "findPwdFail";
+		}
+	}
+	
+	// 비밀번호 재설정
+	@PostMapping("updatePwd.me")
+	public String updatePwd(@RequestParam ("memPwd") String memPwd, @RequestParam ("id") String id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		String newPwd = (bcrypt.encode(memPwd));
+		System.out.println(id);
+		map.put("newPwd", newPwd);
+		map.put("id", id);
+		
+		int result = mService.updatePwd(map);
+		System.out.println(result);
+		if(result > 0) {
+			return "findPwdSuccess";
+		} else {
+			return "findPwdFail";
 		}
 	}
 }

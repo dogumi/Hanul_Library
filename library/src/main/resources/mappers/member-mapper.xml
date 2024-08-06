@@ -25,4 +25,16 @@
    		from member
    		where mem_active = 'Y' and mem_name = #{memName} and mem_phone = #{memPhone}
    </select>
+   
+   <select id="findPwd" resultType="Member">
+   		select *
+   		from member
+   		where mem_active = 'Y' and mem_id = #{memId} and mem_name = #{memName} and mem_phone = #{memPhone}
+   </select>
+   
+   <update id="updatePwd">
+   		update member
+   		set mem_pwd = #{newPwd}
+   		where mem_active = 'Y' and mem_id = #{id}
+   </update>
 </mapper>

@@ -1,5 +1,7 @@
 package com.project.library.member.model.service;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,19 @@ public class MemberServiceImpl implements MemberService {
 	public Member findId(Member m) {
 		return mMapper.findId(m);
 	}
-	
+
+
+	@Override
+	public Member findPwd(Member m) {
+		return mMapper.findPwd(m);
+	}
+
+
+	@Override
+	public int updatePwd(HashMap<String, Object> map) {
+		return mMapper.updatePwd(map);
+	}
+
+
 	
 }

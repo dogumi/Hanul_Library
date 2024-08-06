@@ -1,5 +1,7 @@
 package com.project.library.member.model.service;
 
+import java.util.HashMap;
+
 import com.project.library.member.model.vo.Member;
 
 public interface MemberService {
@@ -11,5 +13,10 @@ public interface MemberService {
 	int checkId(String id);
 
 	Member findId(Member m);
+
+	Member findPwd(Member m);
+
+	int updatePwd(HashMap<String, Object> map);
+
 
 }
