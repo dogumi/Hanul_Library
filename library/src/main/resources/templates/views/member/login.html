@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+<style>
+ 	main { width: 100%; height: 100%;}
+ 	main {align-items: center; padding-top: 40px; padding-bottom: 40px;}
+	.form-signin {max-width: 330px; padding: 15px;}
+	.form-signin .form-floating:focus-within {z-index: 2;}
+	.form-signin input[type="email"] {margin-bottom: -1px; border-bottom-right-radius: 0; border-bottom-left-radius: 0;}
+	.form-signin input[type="password"] {margin-bottom: 10px; border-top-left-radius: 0; border-top-right-radius: 0;}
+	.form-signin a>label{color: black;}
+	.form-signin a>label:hover{text-decoration: underline;}
+</style>
+</head>
+
+
+<body class="text-center" style="height: 1000px; background-color: #f5f5f5;">
+	<nav th:replace="~{views/common/navbar :: navbar}"></nav>
+	
+	<main class="form-signin m-auto" style=" width:100%;">
+		<form action="login.me" method="post" style="padding-top: 200px;">
+			<a href="home.do"><img class="mb-4" src="image/logo.png" width="150"></a>
+			<h1 class="h3 mb-3 fw-normal">로그인</h1>
+
+			<div class="form-floating">
+				<input type="text" class="form-control" id="floatingInput" name="memId" placeholder="input your id">
+				<label for="floatingInput">아이디</label>
+			</div>
+			<div class="form-floating">
+				<input type="password" class="form-control" id="floatingPassword" name="memPwd" placeholder="Password">
+				<label for="floatingPassword">비밀번호</label>
+			</div>
+
+			<button class="w-100 btn btn-lg btn-success" type="submit">로그인</button><br><br>
+			<div class="mb-3">
+				<a href="enroll.me"><label>회원가입</label></a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="findIdView.me"><label>아이디 찾기 |</label></a>
+				<a href="findPwdView.me"><label> 비밀번호 찾기</label></a>	
+			</div>
+			<input type="hidden" name="beforeURL"/> <!-- 이전 URL을 담음 -->
+			
+		</form>
+	</main>
+	
+	<footer th:replace="~{views/common/footer :: footer}"></footer>
+	
+	<!-- <script>
+		window.onload = () => {
+			const beforeURL = document.referrer; // 이전 URL을 beforeURL 변수에 담음
+			document.getElementsByName('beforeURL')[0].value = beforeURL;
+		}
+	</script> -->
+</body>
+</head>
+</html>

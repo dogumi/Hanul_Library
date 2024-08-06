@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>비밀번호 재설정</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+	<nav th:replace="~{views/common/navbar :: navbar}"></nav>
+	<div class="container" style="padding-top: 100px;">
+		<main>
+			<div class="py-5 text-center">
+				<a href="home.do"><img class="d-block mx-auto mb-4" src="image/logo.png" alt="" width="130"></a>
+				<h2>비밀번호 재설정</h2>
+			</div>
+
+			<div style="margin-left: 350px; margin-right: 350px;">
+				<form class="needs-validation" action="updatePwd.me" method="POST" id="updatePwdForm">
+				<input type="hidden"  name="id" th:value="${mem.memId}">
+					<div class="row g-3">
+						<div class="col-12">
+							<label for="pwd" class="form-label">새 비밀번호</label>
+							<input type="password" class="form-control" id="memPwd" name="memPwd" required>
+						</div>
+						
+						<div class="col-12">
+							<label for="pwdConfirm" class="form-label">새 비밀번호 확인</label>
+							<input type="password" class="form-control" id="pwdConfirm" required>
+							<label id="pwdCheckResult"></label>
+						</div>
+						
+						<br><br><br><br><br>
+						
+						<button class="w-100 btn btn-primary btn-lg" type="button" id="submitBtn">확인</button>
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer class="my-5 pt-5 text-muted text-center text-small"></footer>
+	</div>
+	
+	<footer th:replace="~{views/common/footer :: footer}"></footer>
+	
+	<script>
+		document.getElementById('pwdConfirm').addEventListener('input', function() {
+	        const pwd = document.getElementById('memPwd').value;
+	        const pwdConfirm = this.value;
+	        const pwdResult = document.getElementById('pwdCheckResult');
+	
+	        if (pwd === pwdConfirm) {
+	            pwdResult.innerText = '비밀번호가 일치합니다.';
+	            pwdResult.style.color = 'green';
+	        } else {
+	            pwdResult.innerText = '비밀번호가 일치하지 않습니다.';
+	            pwdResult.style.color = 'red';
+	        }
+	    });
+	
+		document.getElementById('submitBtn').addEventListener('click', function() {
+	        const form = document.getElementById('updatePwdForm');
+	        const pwdConfirm = document.getElementById('pwdConfirm');
+	        const pwd = document.getElementById('memPwd');
+	        const pwdResult = document.getElementById('pwdCheckResult');
+	
+	        
+	        if (pwd.value.trim() === '') {
+	            alert('비밀번호를 입력하세요.');
+	            pwd.focus();
+	        } else if (pwdConfirm.value.trim() === '') {
+	            alert('비밀번호를 확인하세요.');
+	            pwdConfirm.focus();
+	        } else if (pwd.value !== pwdConfirm.value) {
+	            alert('비밀번호가 일치하지 않습니다.');
+	            pwdConfirm.focus();
+	        } else {
+	            form.submit();
+	        }
+	    });
+	</script>
+</body>
+</html>
