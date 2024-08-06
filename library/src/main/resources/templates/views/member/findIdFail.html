@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	body {width: 100%; height: 1000px;}
+	
+	#wrapper { 
+		height: auto;
+  		min-height: 100%;
+  		padding-bottom: 225px; 
+  	}
+  	footer{
+	  position : relative;
+	  transform : translateY(-100%);
+	}
+</style>
+<body>
+	
+	<nav th:replace="~{views/common/navbar :: navbar}"></nav>
+
+	<div class="container text-center" id="wrapper" style="width: 100%; padding-top: 100px;">
+		<div class="bg-body-tertiary p-5 rounded" style="margin: 100px;">
+			<h1 style="color: red;">아이디 찾기 실패</h1><br>
+			<p class="lead">일치하는 정보가 없습니다. 입력하신 정보를 다시 확인해주세요.</p><br>
+			<a class="btn btn-lg btn-secondary" href="javascript:history.back();" role="button">이전</a>
+		</div>
+	</div>
+	
+	<footer th:replace="~{views/common/footer :: footer}"></footer>
+</body>
+</head>
+</html>
