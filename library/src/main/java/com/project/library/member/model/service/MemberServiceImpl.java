@@ -1,5 +1,6 @@
 package com.project.library.member.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,24 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updatePwd(HashMap<String, Object> map) {
 		return mMapper.updatePwd(map);
+	}
+
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectMyList(String id) {
+		return mMapper.selectMyList(id);
+	}
+
+
+	@Override
+	public int updateMember(HashMap<String, Object> map) {
+		return mMapper.updateMember(map);
+	}
+
+
+	@Override
+	public int deleteMember(String id) {
+		return mMapper.deleteMember(id);
 	}
 
 

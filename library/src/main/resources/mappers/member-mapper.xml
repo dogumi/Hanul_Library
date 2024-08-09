@@ -4,8 +4,8 @@
 
 
 	<insert id="insertMember">
-      insert into member
-      values(seq_mem.nextval, #{memName}, #{memId}, #{memPwd}, #{memPhone}, #{memEmail}, default, default, SYSDATE)
+      	insert into member
+      	values(seq_mem.nextval, #{memName}, #{memId}, #{memPwd}, #{memPhone}, #{memEmail}, default, default, SYSDATE)
    </insert>
    
    <select id="login" resultType="Member">
@@ -37,4 +37,23 @@
    		set mem_pwd = #{newPwd}
    		where mem_active = 'Y' and mem_id = #{id}
    </update>
+   
+   <select id="selectMyList" resultType="Member">
+   		select *
+   		from member
+   		where mem_id = #{id}
+   </select>
+	
+   <update id="updateMember">
+		update member
+      	set mem_email = #{email}, mem_phone = #{phone}, mem_name = #{name}
+      	where mem_id = #{id}
+   </update>
+
+   <update id="deleteMember">
+		update member
+		set mem_active = 'N'
+		where mem_id = #{id}
+   </update>
+
 </mapper>

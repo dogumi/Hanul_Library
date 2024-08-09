@@ -1,6 +1,7 @@
 package com.project.library.member.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.project.library.member.model.exception.MemberException;
 import com.project.library.member.model.service.MemberService;
 import com.project.library.member.model.vo.Member;
+
+import jakarta.servlet.http.HttpSession;
+
 
 @SessionAttributes("loginUser")
 @Controller
@@ -102,7 +106,7 @@ public class MemberController {
 		Member id = mService.findId(m);
 		if(id != null) {
 			model.addAttribute("mem", id);
-			return "findPwdSuccess";
+			return "findIdSuccess";
 		} else {
 			return "findIdFail";
 		}
@@ -128,11 +132,89 @@ public class MemberController {
 	
 	// 비밀번호 재설정
 	@PostMapping("updatePwd.me")
-	public String updatePwd(@RequestParam ("memPwd") String memPwd, @RequestParam ("id") String id) {
+	public String updatePwd(@RequestParam ("memPwd") String memPwd, @RequestParam("memId") String memId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String newPwd = (bcrypt.encode(memPwd));
+		map.put("newPwd", newPwd);
+		map.put("id", memId);
+		
+		int result = mService.updatePwd(map);
+		System.out.println(result);
+		if(result > 0) {
+			return "findPwdSuccess";
+		} else {
+			return "findPwdFail";
+		}
+	}
+	
+	// 내정보수정 이동
+	@GetMapping("myPage.me")
+	public String myPageView(Model model, HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemId();
+	    ArrayList<HashMap<String,Object>> list = mService.selectMyList(id);
+	    model.addAttribute("list", list);
+		return "myPage";
+	} 
+
+	// 내정보수정
+	@PostMapping("updateMember.me")  
+	  public String updateMember(@ModelAttribute Member m, @RequestParam("emailId") String emailId, 
+	  							@RequestParam("emailDomain") String emailDomain, @RequestParam("memPhone") String memPhone, 
+								@RequestParam("memName") String memName, Model model) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		String email = null;
+		if(!emailId.trim().equals("")) {
+			email = emailId + "@" + emailDomain;
+		}
+		m.setMemEmail(email);
+		 
+		map.put("name", memName);
+		map.put("email", email);
+		map.put("phone", memPhone);
+		map.put("id", m.getMemId());
+
+		 int result = mService.updateMember(map);
+		 if(result > 0) {
+			 model.addAttribute("loginUser", mService.login(m));
+			 return "home";
+		 }else {
+			 throw new MemberException("정보수정에 실패했습니다.");
+		 }
+	}
+
+	
+
+	// 회원 탈퇴
+	@GetMapping("deleteMember.me")
+	public String deleteMember(HttpSession session, SessionStatus status) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemId();
+
+		int result = mService.deleteMember(id);
+
+		if(result > 0) {
+			status.setComplete();
+			return "home";
+		} else {
+			throw new MemberException("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
+		}
+	}
+	
+	// 내정보 - 비밀번호 변경 페이지 이동
+	@GetMapping("changePwdView.me")
+	public String changePwdView(){
+		return "changePwd";
+	}
+
+	// 내정보 - 비밀번호 변경
+	@PostMapping("changePwd.me")
+	public String changePwd(@RequestParam String memPwd, HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemId();
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		String newPwd = (bcrypt.encode(memPwd));
-		System.out.println(id);
+		
 		map.put("newPwd", newPwd);
 		map.put("id", id);
 		
