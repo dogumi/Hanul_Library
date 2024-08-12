@@ -1,66 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th=http://www.thymeleaf.org'>
+<html xmlns:th='http://www.thymeleaf.org'>
 <head>
 <meta charset='UTF-8'>
-<title>Insert title here</title>
+<title>인사말</title>
 <body>
     <nav th:replace="~{views/common/navbar :: navbar}"></nav>
-    <main class="d-flex flex-nowrap">
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-              <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-              <span class="fs-4">Sidebar</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-              <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
-                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-body-emphasis">
-                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-body-emphasis">
-                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                  Orders
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-body-emphasis">
-                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                  Products
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-body-emphasis">
-                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                  Customers
-                </a>
-              </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-              <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>mdo</strong>
-              </a>
-              <ul class="dropdown-menu text-small shadow">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
-              </ul>
-            </div>
-          </div>
-      </main>
-      <div th:replace="~{views/common/footer :: footer}"></div>
+
+	<main class="container" style="width: 1050px; height: 1200px; background: white;">
+		<div class="text-center" style="padding-top: 200px;"><img alt="" src="image/greeting.png"></div>
+		<br><br><br>
+		
+
+		<div class="container" style="font-size: 20px; margin: auto;">
+			<p>
+				한울도서관은 지역 주민들에게 지식과 문화의 중심으로 자리 잡은 공공 도서관입니다. 이 도서관은 다양한 연령대와 관심사를 아우르는 폭넓은 장서와 함께, 모두가 편안하게 독서와 학습을 즐길 수 있는 쾌적한 환경을 제공합니다.<br><br>
+				한울도서관은 최신 베스트셀러부터 고전 문학, 전문 서적까지 다양한 자료를 보유하고 있어, 독서 애호가부터 연구자까지 누구나 만족할 수 있는 콘텐츠를 찾을 수 있습니다. 또한, 전자책과 오디오북 등의 디지털 자료도 이용 가능하여 현대적이고 편리한 독서 환경을 제공합니다.<br><br>
+				이 도서관은 단순히 책을 빌리는 곳을 넘어, 지역 사회의 문화 중심지로서 다양한 프로그램과 행사를 개최합니다. 어린이들을 위한 독서 프로그램, 청소년과 성인을 위한 독서 토론 모임, 그리고 작가 초청 강연 등 다양한 행사가 열리며, 이를 통해 도서관은 지식과 문화 교류의 장으로서 중요한 역할을 하고 있습니다.<br><br>
+				한울도서관의 넓고 아늑한 열람실은 조용한 독서를 원하는 이들에게 최적의 장소를 제공합니다. 또한, 최신 시설을 갖춘 컴퓨터실과 스터디룸이 마련되어 있어 학습이나 연구에도 최적의 환경을 제공합니다.<br><br>
+				이와 더불어, 친절하고 전문적인 도서관 직원들은 이용자들이 필요한 정보를 찾을 수 있도록 항상 도움을 제공합니다. 도서 대출과 반납이 간편하며, 원하는 도서를 예약할 수 있는 서비스도 제공하여 이용자 편의를 극대화하고 있습니다.
+			<p>
+		</div>
+	</main>
+
+	<div th:replace="~{views/common/footer :: footer}"></div>
 </body>
 </head>
 </html>
