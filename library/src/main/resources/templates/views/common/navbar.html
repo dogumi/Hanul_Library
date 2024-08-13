@@ -80,50 +80,54 @@
 </style>
 </head>
 <body>
-	<div class="text-center" style="margin:0; padding:0; position: fixed; width: 100%; background: white; z-index: 1;">
-		<div class="row">
-			<div class="col">
-				<a href="home.do"><img src="image/logo.png" style="width:180px;  margin-top: 10px;" class="logo"></a>
-			</div>
-			<div class="col-8" >
-				<ul class="menu">
-					<li><a href="#" style="font-size:20px; font-weight: bold;">도서관 소개</a>
-						<ul class="submenu">
-							<li><a href="greetingView.bo">인사말</a></li>
-							<li><a href="#">부서 안내</a></li>
+	<nav class="navbar fixed-top" style="background-color: #fff;">
+		<div class="container-fluid">
+			<div class="text-center" style="margin:0; padding:0; width: 100%;">
+				<div class="row">
+					<div class="col">
+						<a href="home.do"><img src="image/logo.png" style="width:180px;  margin-top: 10px;" class="logo"></a>
+					</div>
+					<div class="col-8" >
+						<ul class="menu">
+							<li><a href="#" style="font-size:20px; font-weight: bold;">도서관 소개</a>
+								<ul class="submenu">
+									<li><a href="greetingView.bo">인사말</a></li>
+									<li><a href="#">부서 안내</a></li>
+								</ul>
+							</li>
+							<li><a href="#" style="font-size:20px; font-weight: bold;">신청 서비스</a>
+								<ul class="submenu">
+									<li><a href="#">시설대관</a></li>
+									<li><a href="#">자원봉사</a></li>
+								</ul>
+							</li>
+							<li><a href="#" style="font-size:20px; font-weight: bold;">도서관 정보</a>
+								<ul class="submenu">
+									<li><a href="#">공지사항</a></li>
+									<li><a href="#">도서정보</a></li>
+								</ul>
+							</li>
+							<li><a href="#" style="font-size:20px; font-weight: bold;">나만의 도서관</a>
+								<ul class="submenu">
+									<li><a href="#">회원정보수정</a></li>
+									<li><a href="#">나의신청정보</a></li>
+								</ul>
+							</li>
 						</ul>
-					</li>
-					<li><a href="#" style="font-size:20px; font-weight: bold;">신청 서비스</a>
-						<ul class="submenu">
-							<li><a href="#">시설대관</a></li>
-							<li><a href="#">자원봉사</a></li>
-						</ul>
-					</li>
-					<li><a href="#" style="font-size:20px; font-weight: bold;">도서관 정보</a>
-						<ul class="submenu">
-							<li><a href="#">공지사항</a></li>
-							<li><a href="#">도서정보</a></li>
-						</ul>
-					</li>
-					<li><a href="#" style="font-size:20px; font-weight: bold;">나만의 도서관</a>
-						<ul class="submenu">
-							<li><a href="#">회원정보수정</a></li>
-							<li><a href="#">나의신청정보</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-			<div class="col login" th:if="${session.loginUser == null}">
-				<a href="loginView.me">로그인</a>
-				&nbsp;&nbsp;&nbsp;
-				<a href="enroll.me">회원가입</a>
-			</div>
-			<div class="col login" th:if="${session.loginUser != null}">
-				<a href="myPage.me">내정보</a>
-				&nbsp;&nbsp;&nbsp;
-				<a href="logout.me">로그아웃</a>
+					</div>
+					<div class="col login" th:if="${session.loginUser == null}">
+						<a href="loginView.me">로그인</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="enroll.me">회원가입</a>
+					</div>
+					<div class="col login" th:if="${session.loginUser != null}">
+						<a href="myPage.me">내정보</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="logout.me">로그아웃</a>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
+	</nav>
 </body>
 </html>
