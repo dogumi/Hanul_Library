@@ -16,4 +16,9 @@ public class BoardController {
     public String greetingView() {
         return "intro/greeting";
     }
+    
+    @GetMapping("departmentView.bo")
+    public String departmentView() {
+    	return "intro/department";
+    }
 }
