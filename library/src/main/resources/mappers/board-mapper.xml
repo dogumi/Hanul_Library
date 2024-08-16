@@ -1,5 +1,31 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN' 'http://mybatis.org/dtd/mybatis-3-mapper.dtd' >
-<mapper namespace='com.project.library.board.model.dao.MemberMapper'>
+<mapper namespace='com.project.library.board.model.dao.BoardMapper'>
     
+    <select id="getListCount" resultType="_int">
+    	select count(*)
+    	from notice_board
+    	where notice_status = 'Y' 
+    </select>
+    
+    <select id="selectBoardList" resultType="Notice">
+    	select *
+    	from notice_board
+    		join member on(notice_writer_no = mem_no)
+    	where notice_status = 'Y'
+    	order by notice_no desc
+    </select>
+    
+    
+    <select id="selectBoard" resultType="Notice">
+    	select *
+    	from notice_board
+    	where notice_status = 'Y' and notice_no = ${noticeNo}
+    </select>
+    
+    <update id="updateCount">
+    	update notice_board
+    	set notice_count = notice_count + 1
+    	where notice_no = ${noticeNo}
+    </update>
 </mapper>
