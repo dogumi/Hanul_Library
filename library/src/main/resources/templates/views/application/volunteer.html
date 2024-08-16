@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th='http://www.thymeleaf.org'>
+<head>
+<meta charset="UTF-8">
+<title>시설대관</title>
+</head>
+<body>
+	<nav th:replace="~{views/common/navbar :: navbar}"></nav>
+	
+	<div class="position-absolute" style="display: inline-block; margin-top: 200px;">
+		<div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+	    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+	      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+	      <span class="fs-4">신청 서비스</span>
+	    </a>
+	    <hr>
+	    <ul class="nav nav-pills flex-column mb-auto">
+	      <li class="nav-item">
+	        <a href="greetingView.bo" class="nav-link link-body-emphasis" aria-current="page">
+	          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+	          시설대관
+	        </a>
+	      </li>
+	      <li>
+	        <a href="volunteerView.bo" class="nav-link active" style="background: #7DA45C;">
+	          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+	          자원봉사
+	        </a>
+	      </li>
+	    </ul><hr>
+	  </div>
+	</div>
+	
+	<main class="container" style="width: 1050px; height: 100%; background: white; padding-top: 200px;">
+		<h3>자원봉사</h3>
+		
+		<div style="border-bottom: 5px solid #7DA45C;"></div>
+		<br><br><br>
+		
+		<textarea rows="50" cols="100" disabled style="border-style: none; font-size: 19px; resize: none;">한울도서관 자원봉사 신청 안내
+
+한울도서관은 도서관 운영 및 다양한 프로그램의 원활한 진행을 위해 자원봉사자들의 참여를 적극 환영합니다. 자원봉사 활동을 통해 도서관의 일원으로서 지역 사회에 기여하고, 다양한 경험을 쌓을 수 있는 기회를 제공해 드립니다.
+
+1. 모집 대상
+
+	•	만 16세 이상으로, 도서관 운영 및 활동에 관심 있는 모든 분
+	•	성실하고 책임감 있게 활동할 수 있는 분
+	•	최소 3개월 이상 지속적으로 활동 가능한 분
+
+2. 봉사 활동 내용
+
+	•	도서 정리 및 대출/반납 지원: 도서 정리, 자료 대출 및 반납 처리 지원
+	•	프로그램 지원: 어린이 독서 프로그램, 문화 행사 등 도서관 프로그램 운영 보조
+	•	안내 및 상담 지원: 이용자 안내, 도서관 이용 관련 상담 지원
+	•	기타 도서관 운영 지원: 자료실 정리, 이용자 설문 조사, 도서관 내 시설 관리 등
+
+3. 활동 시간
+
+	•	평일: 오전 9시 ~ 오후 6시 중 희망 시간 선택 가능
+	•	주말 및 공휴일: 오전 9시 ~ 오후 3시 중 희망 시간 선택 가능
+	•	※ 주 1회 이상, 하루 최소 2시간 이상 활동이 권장됩니다.
+
+4. 신청 방법
+
+	1.	홈페이지 로그인 후 하단의 신청하기 버튼을 눌러 신청서를 작성하여 제출해주세요.
+	2.	면담: 신청서 제출 후, 도서관에서 개별 면담을 진행합니다.
+	3.	활동 배정: 면담 후 적합한 봉사 활동 분야와 일정을 조율하여 최종 배정합니다.
+	4.	교육: 활동 전 필수 교육을 이수한 후 본격적으로 자원봉사 활동을 시작합니다.
+
+5. 자원봉사 혜택
+
+	•	봉사활동 확인서 발급: 봉사 활동 시간에 따른 확인서 발급
+	•	도서관 프로그램 우선 참여 기회: 도서관에서 진행하는 다양한 프로그램에 우선 참여 기회 제공
+	•	활동 우수자 시상: 연말 우수 자원봉사자 시상
+
+6. 유의사항
+
+	•	봉사활동 중에는 도서관의 규정을 준수하며, 책임감 있게 활동해 주시기 바랍니다.
+	•	사전 연락 없이 무단 결석할 경우, 자원봉사 활동이 제한될 수 있습니다.
+	•	활동 일정 변경이 필요할 경우, 최소 3일 전에 도서관에 통보해 주시기 바랍니다.
+
+7. 문의
+
+	•	전화: 010-1234-5678
+	•	이메일: hanu_library@library.com
+	•	주소: 서울시 한울구 도서관로 123, 한울도서관
+
+한울도서관 자원봉사 프로그램에 많은 관심과 참여 부탁드립니다. 여러분의 소중한 시간이 도서관과 지역 사회에 큰 도움이 됩니다.</textarea>
+
+	<div class="d-grid gap-2 col-6 mx-auto" style="margin-bottom: 60px; margin-top: 60px;">
+		<button class="btn" type="button" style="background: #7DA45C; color: white;">신청하기</button>
+	</div>
+	</main>
+	
+	<div th:replace="~{views/common/footer :: footer}"></div>
+
+</body>
+</html>
