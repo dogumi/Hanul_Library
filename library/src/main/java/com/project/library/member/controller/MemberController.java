@@ -15,10 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.project.library.board.model.vo.PageInfo;
+import com.project.library.common.Pagination;
 import com.project.library.member.model.exception.MemberException;
 import com.project.library.member.model.service.MemberService;
+import com.project.library.member.model.vo.Application;
 import com.project.library.member.model.vo.Member;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -224,6 +228,113 @@ public class MemberController {
 			return "findPwdSuccess";
 		} else {
 			return "findPwdFail";
+		}
+	}
+	
+	// 나의신청정보 페이지 이동 - 시설대관
+	@GetMapping("myRentalApp.me")
+	public String myApp(@RequestParam(value = "page", defaultValue = "1") int currentPage, HttpSession session, HttpServletRequest request, Model model) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int writerNo = 0;
+		if(loginUser != null) {
+			writerNo = loginUser.getMemNo();
+		}
+		
+		int listCount = mService.selecrRentalAppCount(writerNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		ArrayList<Application> list = mService.selectRentalApp(writerNo, pi);
+		
+		if(list != null) {
+			String memName = loginUser.getMemName();
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			model.addAttribute("loc", request.getRequestURI());
+			model.addAttribute("name", memName);
+			
+			
+			return "myRentalApp";
+		} else {
+			throw new MemberException("신청정보 조회 중 오류가 발생했습니다.");
+		}
+		
+	}
+	
+	// 나의 신청정보 페이지 이동 - 자원봉사
+	@GetMapping("myVolunteerApp.me")
+	public String myVolunterrApp(@RequestParam(value = "page", defaultValue = "1") int currentPage, HttpSession session, HttpServletRequest request, Model model) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int writerNo = 0;
+		if(loginUser != null) {
+			writerNo = loginUser.getMemNo();
+		}
+		
+		int listCount = mService.selecrVolunteerAppCount(writerNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		ArrayList<Application> list = mService.selectVolunteerApp(writerNo, pi);
+		
+		if(list != null) {
+			String memName = loginUser.getMemName();
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			model.addAttribute("loc", request.getRequestURI());
+			model.addAttribute("name", memName);
+			
+			
+			return "myVolunteerApp";
+		} else {
+			throw new MemberException("신청정보 조회 중 오류가 발생했습니다.");
+		}
+	}
+	
+	// 나의신청정보 - 시설대관 상세페이지
+	@GetMapping("selectRentalApp.me")
+	public String selectRentalApp(@RequestParam("appNo")int app, @RequestParam("page") int page, HttpSession session, Model model) {
+		Application content = mService.selectRentalAppDetail(app);
+		
+		if(content != null) {
+			model.addAttribute("content", content);
+			model.addAttribute("page", page);
+			return "myRentalAppDetail";
+		} else {
+			throw new MemberException("신청정보를 불러오는 중 오류가 발생했습니다.");
+		}
+	}
+	
+	// 나의신청정보 - 자원봉사 상세페이지
+	@GetMapping("selectVolunteerApp.me")
+	public String selectVolunteerApp(@RequestParam("appNo") int app, @RequestParam("page") int page, HttpSession session, Model model) {
+		Application content = mService.selectVolunteerAppDetail(app);
+		
+		if(content != null) {
+			model.addAttribute("content", content);
+			model.addAttribute("page", page);
+			return "myVolunteerAppDetail";
+		} else {
+			throw new MemberException("신청정보를 불러오는 중 오류가 발생했습니다.");
+		}
+	}
+	
+	//나의신청정보 - 신청정보(시설대관) 삭제
+	@GetMapping("deleteRentalApp.me")
+	public String deleteApp(@RequestParam("appNo") int appNo) {
+		int result = mService.deleteApp(appNo);
+		if(result > 0) {
+			return "redirect:myRentalApp.me";
+		} else {
+			throw new MemberException("신청정보를 삭제하는데 오류가 발생했습니다.");
+		}
+	}
+	
+	// 나의신청정보 - 신청정보(자원봉사) 삭제
+	@GetMapping("deleteVolunteerApp.me")
+	public String deleteVolunteerApp(@RequestParam("appNo") int appNo) {
+		int result = mService.deleteApp(appNo);
+		if(result > 0) {
+			return "redirect:myVolunteerApp.me";
+		} else {
+			throw new MemberException("신청정보를 삭제하는 데 오류가 발생했습니다.");
 		}
 	}
 }

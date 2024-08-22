@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>나의신청정보 - 자원봉사</title>
 </head>
 <body>
 	<nav th:replace="~{views/common/navbar :: navbar}"></nav>
@@ -11,51 +11,48 @@
 		<div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
 	    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
 	      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-	      <span class="fs-4">도서관 정보</span>
+	      <span class="fs-4">나의신청정보</span>
 	    </a>
 	    <hr>
 	    <ul class="nav nav-pills flex-column mb-auto">
 	      <li class="nav-item">
-	        <a href="noticeView.bo" class="nav-link active" aria-current="page" style="background: #7DA45C;">
+	        <a href="myRentalApp.me" class="nav-link link-body-emphasis " aria-current="page" >
 	          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-	          공지사항
+	          시설대관
 	        </a>
 	      </li>
 	      <li>
-	        <a href="booksearch.book" class="nav-link link-body-emphasis" >
+	        <a href="myVolunteerApp.me" class="nav-link active" style="background: #7DA45C;">
 	          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-	          도서검색
+	          자원봉사
 	        </a>
 	      </li>
 	    </ul><hr>
 	  </div>
 	</div>
 	
-	<main class="container" style="width: 1050px; height: 1100px; background: white; padding-top: 200px;">
-		<h3>공지사항</h3>
+	<main class="container" style="width: 1050px; height: 900px; background: white; padding-top: 200px;">
+		<h3>나의신청정보 - 자원봉사</h3>
 		
 		<div style="border-bottom: 5px solid #7DA45C;"></div>
 		<br><br><br>
 		
+		
 		<table class="table text-center">
 			<thead class="table-light">
 				<tr>
-					<th scope="col" class="col-1">글 번호</th>
-					<th scope="col" class="col-1">말머리</th>
-					<th scope="col" class="col-4">글 제목</th>
-					<th scope="col" class="col-1">작성자</th>
-					<th scope="col" class="col-1">작성일자</th>
-					<th scope="col" class="col-1">조회수</th>
+					<th scope="col" class="col-1">신청번호</th>
+					<th scope="col" class="col-4">신청글 제목</th>
+					<th scope="col" class="col-1">신청자</th>
+					<th scope="col" class="col-1">신청일자</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="n : ${list}">
-					<td>[[${n.noticeNo}]]</td>
-					<td>[[${n.noticeCategory}]]</td>
-					<td>[[${n.noticeTitle}]]</td>
-					<td>관리자</td>
-					<td>[[${n.noticeModifyDate}]]</td>
-					<td>[[${n.noticeCount}]]</td>
+				<tr th:each="list : ${list}">
+					<td>[[${list.appNo}]]</td>
+					<td>[[${list.appTitle}]]</td>
+					<td>[[${name}]]</td>
+					<td>[[${list.appModifyDate}]]</td>
 				</tr>
 			</tbody>
 		</table>
@@ -90,10 +87,10 @@
 			for(const td of tds){
 				td.addEventListener('click', function(){
 					const trTds = this.parentElement.querySelectorAll('td');
-					const noticeNo = trTds[0].innerText;
+					const appNo = trTds[0].innerText;
 					
 					/*<![CDATA[*/
-					location.href="selectBoard.bo?noticeNo=" + noticeNo + "&page=" + /*[[${pi.currentPage}]]*/1;
+					location.href="selectVolunteerApp.me?appNo=" + appNo + "&page=" + /*[[${pi.currentPage}]]*/1;
 					/*]]>*/
 				})
 			}

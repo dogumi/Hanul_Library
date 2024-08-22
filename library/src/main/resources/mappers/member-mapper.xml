@@ -55,5 +55,48 @@
 		set mem_active = 'N'
 		where mem_id = #{id}
    </update>
-
+   
+   <select id="selectRentalAppCount" resultType="_int">
+   		select count(*)
+   		from application
+   		where app_cate_no = 10 and app_writer_no = ${writerNo}
+   </select>
+   
+   
+	<select id="selectRentalApp" resultType="Application">
+		select *
+		from application
+		where app_cate_no = 10 and app_writer_no = ${writerNo}
+		order by app_no desc
+	</select>
+	
+	<select id="selectVolunteerAppCount" resultType="_int">
+		select count(*)
+		from application
+		where app_cate_no = 20 and app_writer_no = ${writerNo}
+	</select>
+	
+	<select id="selectVolunteerApp" resultType="Application">
+		select *
+		from application
+		where app_cate_no = 20 and app_writer_no = ${writerNo}
+		order by app_no desc
+	</select>
+	
+	<select id="selectRentalAppDetail" resultType="Application">
+		select *
+		from application
+		where app_cate_no = 10 and app_no = ${app}
+	</select>
+	
+	<select id="selectVolunteerAppDetail" resultType="Application">
+		select *
+		from application
+		where app_cate_no = 20 and app_no = ${app}
+	</select>
+	
+	<delete id="deleteApp">
+		delete from application
+		where app_no = ${appNo}
+	</delete>
 </mapper>

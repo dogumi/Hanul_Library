@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th='http://www.thymeleaf.org'>
+<head>
+<meta charset="UTF-8">
+<title>시설대관신청</title>
+</head>
+<body>
+	<nav th:replace="~{views/common/navbar :: navbar}"></nav>
+	
+	<div class="position-absolute" style="display: inline-block; margin-top: 200px;">
+		<div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+	    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+	      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+	      <span class="fs-4">신청 서비스</span>
+	    </a>
+	    <hr>
+	    <ul class="nav nav-pills flex-column mb-auto">
+	      <li class="nav-item">
+	        <a href="facillityRentalView.bo" class="nav-link active" aria-current="page" style="background: #7DA45C;">
+	          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+	          시설대관
+	        </a>
+	      </li>
+	      <li>
+	        <a href="volunteerView.bo" class="nav-link link-body-emphasis">
+	          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+	          자원봉사
+	        </a>
+	      </li>
+	    </ul><hr>
+	  </div>
+	</div>
+	
+	<main class="container" style="width: 1050px; height: 100%; background: white; padding-top: 200px;">
+		<h3>시설 대관 신청</h3>
+		
+		<div style="border-bottom: 5px solid #7DA45C;"></div>
+		<br><br><br>
+		<form action="insertRentalApplication.bo">
+			<div class="container m-auto" >
+				<input type="text" placeholder=" 제목" name="appTitle" style="width:100%; border: 1px solid #959595; border-radius: 5px; height:30px; "/>
+				<br><br><br>
+				<textarea  rows="40" cols="100" name="appContent" style="border-radius: 10px; border: 1px solid #959595; resize:none;">
+				
+빠짐없이 모두 작성해주시길 바랍니다.
+
+1. 신청자 정보
+
+	•	이름: 
+	•	소속 (해당 시): 
+	•	주소:
+	•	전화번호: 
+	•	이메일: 
+
+2. 행사 정보
+
+	•	행사명: 
+	•	행사 목적: 
+	•	예상 참석 인원:
+	•	행사 날짜: 
+	•	시작 시간:  종료 시간: 
+
+3. 대관 시설
+
+	•	사용할 시설:
+	
+
+4. 이용 약관
+
+	•	신청자는 도서관의 시설 이용 규정을 준수할 것을 동의합니다.
+	•	시설 사용 후에는 원상 복구하여야 하며, 손상된 시설에 대해서는 배상 책임을 질 수 있습니다.
+	•	도서관의 사전 허가 없이 시설을 상업적 목적으로 사용할 수 없습니다.
+
+신청서 작성 후에는 서명 및 제출이 필요합니다. 필요한 경우, “이용 약관”에 대한 추가 조항이나 세부사항을 포함시킬 수 있습니다.</textarea>
+			</div>
+			
+			<div class="d-grid gap-2 col-6 mx-auto" style="margin-bottom: 60px; margin-top: 30px;">
+				<button class="btn" id="btn" type="submit" style="background: #7DA45C; color: white;">신청하기</button>
+			</div>
+		</form>
+	</main>
+	
+	<div th:replace="~{views/common/footer :: footer}"></div>
+
+	
+</body>
+</html>

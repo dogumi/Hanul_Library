@@ -28,4 +28,14 @@
     	set notice_count = notice_count + 1
     	where notice_no = ${noticeNo}
     </update>
+    
+    <insert id="insertRentalApplication">
+    	insert into application
+    	values(app_no.nextval, ${writerNo}, 10, #{appTitle}, #{appContent}, sysdate, sysdate)
+    </insert>
+    
+    <insert id="insertVolunteerApp">
+    	insert into application
+    	values(app_no.nextval, ${writerNo}, 20, #{appTitle}, #{appContent}, sysdate, sysdate)
+    </insert>
 </mapper>

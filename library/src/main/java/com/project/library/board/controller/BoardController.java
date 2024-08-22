@@ -1,6 +1,7 @@
 package com.project.library.board.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -89,4 +90,68 @@ public class BoardController {
     		throw new BoardException("게시글 상세보기를 실패하였습니다.");
     	}
     }
+    
+    // 시설대관 신청서 작성 페이지 이동
+    @GetMapping("rentalApplicationView.bo")
+    public String rentalApplicationView() {
+    	return "application/rentalApplication";
+    }
+    
+    
+    // 시설대관 신청
+    @GetMapping("insertRentalApplication.bo")
+    public String insertRentalApplication(@RequestParam("appTitle") String appTitle, @RequestParam("appContent") String appContent, HttpSession session, Model model) {
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+    	String writerNo = null;
+    	if(loginUser != null) {
+    		writerNo = loginUser.getMemNo() + "";
+    	}
+    	
+    	HashMap<Object, String> map = new HashMap<Object, String>();
+    	map.put("appTitle", appTitle);
+    	map.put("appContent", appContent);
+    	map.put("writerNo", writerNo);
+    	
+    	
+    	int result = bService.insertRentalApplication(map);
+    	
+    	if(result > 0 ) {
+    		model.addAttribute("result", "success");
+    		return "application/facillityRental";
+    	} else {
+    		throw new BoardException("신청서 작성 중 오류가 발생하였습니다. 다시 작성해주세요.");
+    	}
+    }
+    
+    // 자원봉사 신청서 작성 페이지로 이동
+    @GetMapping("volunteerAppView.bo")
+    public String volunteerAppView() {
+    	return "application/volunteerApp";
+    }
+    
+    // 자원봉사 신청
+    @GetMapping("volunteerApp.bo")
+    public String volunteerApp(@RequestParam("appTitle") String appTitle, @RequestParam("appContent") String appContent, HttpSession session, Model model) {
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+    	String writerNo = null;
+    	if(loginUser != null) {
+    		writerNo = loginUser.getMemNo() + "";
+    	}
+    	
+    	HashMap<Object, String> map = new HashMap<Object, String>();
+    	map.put("appTitle", appTitle);
+    	map.put("appContent", appContent);
+    	map.put("writerNo", writerNo);
+    	
+    	int result = bService.insertVolunteerApp(map);
+    	
+    	if(result > 0 ) {
+    		model.addAttribute("result", "success");
+    		return "application/volunteer";
+    	} else {
+    		throw new BoardException("신청서 작성 중 오류가 발생했습니다. 다시 작성해주세요.");
+    	}
+    	
+    }
+    
 }

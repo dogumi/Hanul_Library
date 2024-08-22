@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TITLE</title>
+    <!-- jQuery 라이브러리 로드 -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+</head>
+<body>
+    <nav th:replace="~{views/common/navbar :: navbar}"></nav>
+    
+    <div class="position-absolute" style="display: inline-block; margin-top: 200px;">
+        <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                <span class="fs-4">도서관 정보</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="noticeView.bo" class="nav-link link-body-emphasis" aria-current="page">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                        공지사항
+                    </a>
+                </li>
+                <li>
+                    <a href="booksearch.book" class="nav-link active" style="background: #7DA45C;">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                        도서정보
+                    </a>
+                </li>
+            </ul><hr>
+        </div>
+    </div>
+    
+    <main class="container" style="width: 1050px; height: 1100px; background: white; padding-top: 200px;">
+        <h3>도서 목록</h3>
+        
+        <div style="border-bottom: 5px solid #7DA45C;"></div>
+        <br><br><br>
+        
+    </main>
+    
+    <script>
+        const url = 'http://data.geoje.go.kr/rfcapi/rest/geojebooks/getGeojebooksList'; /*URL*/
+        let queryParams = '?' + encodeURIComponent('serviceKey') + '='+'SUOWdxp%2B7dFmUbfV97IVhM0U3%2FptROyc44jS9koJpTbKSA%2Fzs21nqh5W%2F4tZLFBNlSS%2BxRU0BLO1Jh%2F0e9WBFA%3D%3D'; /*Service Key*/
+        queryParams += '&' + encodeURIComponent('geojebooksTitle') + '=' + encodeURIComponent('아기 생쥐가 찍찍 소리를 잃어버렸어!'); /**/
+        queryParams += '&' + encodeURIComponent('geojebooksAuthor') + '=' + encodeURIComponent('제다 로바드'); /**/
+        queryParams += '&' + encodeURIComponent('geojebooksPub') + '=' + encodeURIComponent('키즈엠'); /**/
+        $.ajax({
+            url: url + queryParams,
+            success: data => {
+                console.log(data);
+            },
+            error: data => console.log(data)
+        });
+    </script>
+</body>
+</html>

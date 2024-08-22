@@ -81,5 +81,19 @@ public class TemplateResolverConfig {
 		
 		return dotAdm;
 	}
+	
+	@Bean
+	public ClassLoaderTemplateResolver dotBookResolver() {
+		ClassLoaderTemplateResolver dotBook = new ClassLoaderTemplateResolver();
+		dotBook.setPrefix("templates/views/intformation/");
+		dotBook.setSuffix(".html");
+		dotBook.setTemplateMode(TemplateMode.HTML);
+		dotBook.setCharacterEncoding("UTF-8");
+		dotBook.setCacheable(false);
+		dotBook.setOrder(2);
+		dotBook.setCheckExistence(true);
+		
+		return dotBook;
+	}
 }
 

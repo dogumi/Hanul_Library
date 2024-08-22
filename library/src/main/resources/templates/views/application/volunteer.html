@@ -2,7 +2,7 @@
 <html xmlns:th='http://www.thymeleaf.org'>
 <head>
 <meta charset="UTF-8">
-<title>시설대관</title>
+<title>자원봉사</title>
 </head>
 <body>
 	<nav th:replace="~{views/common/navbar :: navbar}"></nav>
@@ -88,11 +88,25 @@
 한울도서관 자원봉사 프로그램에 많은 관심과 참여 부탁드립니다. 여러분의 소중한 시간이 도서관과 지역 사회에 큰 도움이 됩니다.</textarea>
 
 	<div class="d-grid gap-2 col-6 mx-auto" style="margin-bottom: 60px; margin-top: 60px;">
-		<button class="btn" type="button" style="background: #7DA45C; color: white; border-style: none;">신청하기</button>
+		<button class="btn" id="btn" type="button" style="background: #7DA45C; color: white; border-style: none;">신청하기</button>
 	</div>
 	</main>
 	
 	<div th:replace="~{views/common/footer :: footer}"></div>
 
+	<script th:inline="Javascript">
+		window.onload = () => {
+			const btn = document.getElementById("btn")
+			btn.onclick = () => {
+				location.href = "volunteerAppView.bo";
+			}
+			
+			const result = /*[[${result}]]*/ null;
+			if(result === 'success') {
+				alert("신청서 작성이 완료되었습니다.");
+			}
+				
+		}
+	</script>
 </body>
 </html>

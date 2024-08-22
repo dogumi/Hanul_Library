@@ -1,6 +1,7 @@
 package com.project.library.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,16 @@ public class BoardServiceImpl implements BoardService{
 			}
 		}
 		return n;
+	}
+
+	@Override
+	public int insertRentalApplication(HashMap<Object, String> map) {
+		return bMapper.insertRentalApplication(map);
+	}
+
+	@Override
+	public int insertVolunteerApp(HashMap<Object, String> map) {
+		return bMapper.insertVolunteerApp(map);
 	}
 
 }

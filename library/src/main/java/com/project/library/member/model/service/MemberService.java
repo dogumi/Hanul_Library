@@ -3,6 +3,8 @@ package com.project.library.member.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.project.library.board.model.vo.PageInfo;
+import com.project.library.member.model.vo.Application;
 import com.project.library.member.model.vo.Member;
 
 public interface MemberService {
@@ -23,7 +25,21 @@ public interface MemberService {
 
 	int updateMember(HashMap<String, Object> map);
 
-	int deleteMember(String id); 
+	int deleteMember(String id);
+
+	ArrayList<Application> selectRentalApp(int writerNo, PageInfo pi);
+
+	int selecrRentalAppCount(int writerNo);
+
+	int selecrVolunteerAppCount(int writerNo);
+
+	ArrayList<Application> selectVolunteerApp(int writerNo, PageInfo pi);
+
+	Application selectRentalAppDetail(int app);
+
+	int deleteApp(int appNo);
+
+	Application selectVolunteerAppDetail(int app);
 
 
 

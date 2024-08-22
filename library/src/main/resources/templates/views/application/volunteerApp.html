@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th='http://www.thymeleaf.org'>
+<head>
+<meta charset="UTF-8">
+<title>자원봉사신청</title>
+</head>
+<body>
+	<nav th:replace="~{views/common/navbar :: navbar}"></nav>
+	
+	<div class="position-absolute" style="display: inline-block; margin-top: 200px;">
+		<div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+	    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+	      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+	      <span class="fs-4">신청 서비스</span>
+	    </a>
+	    <hr>
+	    <ul class="nav nav-pills flex-column mb-auto">
+	      <li class="nav-item">
+	        <a href="facillityRentalView.bo" class="nav-link link-body-emphasis" aria-current="page">
+	          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+	          시설대관
+	        </a>
+	      </li>
+	      <li>
+	        <a href="volunteerView.bo" class="nav-link active" style="background: #7DA45C;">
+	          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+	          자원봉사
+	        </a>
+	      </li>
+	    </ul><hr>
+	  </div>
+	</div>
+	
+	<main class="container" style="width: 1050px; height: 100%; background: white; padding-top: 200px;">
+		<h3>자원봉사신청</h3>
+		
+		<div style="border-bottom: 5px solid #7DA45C;"></div>
+		<br><br><br>
+		<form action="volunteerApp.bo">
+			<div class="container m-auto" >
+				<input type="text" placeholder=" 제목을 입력해주세요." name="appTitle" style="width:100%; border: 1px solid #959595; border-radius: 5px; height:30px; "/>
+				<br><br><br>
+				<textarea  rows="40" cols="100" name="appContent" style="border-radius: 10px; border: 1px solid #959595; resize:none;">
+1. 개인 정보
+
+	•	이름: 
+	•	생년월일: 
+	•	성별: 
+	•	주소: 
+	•	연락처(휴대전화): 
+	•	이메일: 
+
+2. 학력 및 직업 정보
+
+	•	최종 학력: 
+	•	학교/기관: 
+	•	직업: 
+
+3. 자원봉사 경험
+
+	•	자원봉사 경험이 있습니까? 있다면, 이전 자원봉사 경험을 간략히 서술해주세요 :
+
+
+4. 자원봉사 가능 시간
+
+	•	희망 봉사 기간:
+	•	상시
+	•	특정 기간: 
+	•	가능한 요일: 
+	•	가능한 시간대 (오전 (9:00 - 12:00), 오후 (13:00 - 18:00)) :
+
+5. 지원 동기
+
+	•	도서관 자원봉사에 지원하게 된 동기를 간략히 서술해주세요 
+			: </textarea>
+			</div>
+			
+			<div class="d-grid gap-2 col-6 mx-auto" style="margin-bottom: 60px; margin-top: 30px;">
+				<button class="btn" id="btn" type="submit" style="background: #7DA45C; color: white;">신청하기</button>
+			</div>
+		</form>
+	</main>
+	
+	<div th:replace="~{views/common/footer :: footer}"></div>
+
+	
+</body>
+</html>

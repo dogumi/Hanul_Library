@@ -3,10 +3,13 @@ package com.project.library.member.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.library.board.model.vo.PageInfo;
 import com.project.library.member.model.dao.MemberMapper;
+import com.project.library.member.model.vo.Application;
 import com.project.library.member.model.vo.Member;
 
 @Service
@@ -69,6 +72,52 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int deleteMember(String id) {
 		return mMapper.deleteMember(id);
+	}
+
+
+	@Override
+	public int selecrRentalAppCount(int writerNo) {
+		return mMapper.selectRentalAppCount(writerNo);
+	}
+
+
+	@Override
+	public ArrayList<Application> selectRentalApp(int writerNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return mMapper.selectRentalApp(writerNo, rowBounds);
+	}
+
+
+	@Override
+	public int selecrVolunteerAppCount(int writerNo) {
+		return mMapper.selectVolunteerAppCount(writerNo);
+	}
+
+
+	@Override
+	public ArrayList<Application> selectVolunteerApp(int writerNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return mMapper.selectVolunteerApp(writerNo, rowBounds);
+	}
+
+
+	@Override
+	public Application selectRentalAppDetail(int app) {
+		return mMapper.selectRentalAppDetail(app);
+	}
+
+
+	@Override
+	public int deleteApp(int appNo) {
+		return mMapper.deleteApp(appNo);
+	}
+
+
+	@Override
+	public Application selectVolunteerAppDetail(int app) {
+		return mMapper.selectVolunteerAppDetail(app);
 	}
 
 
