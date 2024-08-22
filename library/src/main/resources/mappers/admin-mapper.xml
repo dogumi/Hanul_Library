@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN' 'http://mybatis.org/dtd/mybatis-3-mapper.dtd' >
+<mapper namespace='com.project.library.admin.model.dao.AdminMapper'>
+
+	<select id="selectApplication" resultType="Application">
+		select app_no, app_writer_no, app_cate_no, app_title, app_content, app_create_date, app_create_date, app_modify_date, mem_name
+		from application
+		join member on app_writer_no = mem_no
+		order by app_no desc
+	</select>
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from application
+	</select>
+	
+</mapper>

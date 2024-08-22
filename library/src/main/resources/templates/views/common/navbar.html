@@ -120,7 +120,14 @@
 						&nbsp;&nbsp;&nbsp;
 						<a href="enroll.me">회원가입</a>
 					</div>
-					<div class="col login" th:if="${session.loginUser != null}">
+					<div class="col login" th:if="${session.loginUser != null && session.loginUser.memGrade == 'CONSUMER'}">
+						<a href="myPage.me">내정보</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="logout.me">로그아웃</a>
+					</div>
+					<div class="col login" th:if="${session.loginUser != null && session.loginUser.memGrade == 'MANAGER'}">
+						<a href="admin.adm">관리자 페이지</a>
+						&nbsp;&nbsp;&nbsp;
 						<a href="myPage.me">내정보</a>
 						&nbsp;&nbsp;&nbsp;
 						<a href="logout.me">로그아웃</a>

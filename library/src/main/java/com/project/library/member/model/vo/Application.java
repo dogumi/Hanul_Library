@@ -21,4 +21,5 @@ public class Application {
 	private String appContent;
 	private Date appCreateDate;
 	private Date appModifyDate;
+	private String memName;
 }

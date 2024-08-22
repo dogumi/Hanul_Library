@@ -21,7 +21,9 @@ public class CheckLoginInterceptor implements HandlerInterceptor {
 			
 			String msg = null;
 			if(url.contains("myPage.me") || url.contains("updateMember.me") || url.contains("deleteMember.me") || url.contains("changePwdView.me") 
-					|| url.contains("changePwd.me") || url.contains("rentalApplicationView.bo") || url.contains("volunteerAppView.bo")) {
+					|| url.contains("changePwd.me") || url.contains("rentalApplicationView.bo") || url.contains("volunteerAppView.bo")
+					|| url.contains("myRentalApp.me") || url.contains("myVolunteerApp.me") || url.contains("selectRentalApp.me")
+					|| url.contains("selectVolunteerApp.me") || url.contains("deleteRentalApp.me") || url.contains("deleteVolunteerApp.me")) {
 				
 				msg = "로그인 후 이용하세요";
 			} else {

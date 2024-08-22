@@ -23,7 +23,9 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		// 일반 계정용
 		registry.addInterceptor(new CheckLoginInterceptor())
 				.addPathPatterns("/myPage.me", "/updateMember.me", "/deleteMember.me", "/changePwdView.me", 
-						"/changePwd.me", "/rentalApplicationView.bo", "/volunteerAppView.bo");
+						"/changePwd.me", "/rentalApplicationView.bo", "/volunteerAppView.bo",
+						"/myRentalApp.me", "/myVolunteerApp.me", "/selectRentalApp.me", "/selectVolunteerApp.me",
+						"/deleteRentalApp.me", "/deleteVolunteerApp.me");
 		// 관리자용
 //		registry.addInterceptor(new CheckAdminInterceptor())
 //				.addPathPatterns("/*.adm");

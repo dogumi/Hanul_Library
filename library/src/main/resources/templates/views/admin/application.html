@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:replace="~{common/navbar :: navbar}"></div>
+	<div th:replace="~{common/adminSymbol :: symbol}"></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="~{common/adminbar :: sidebar}"></div>
+			
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-top: 30px;">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2">관리자 페이지 - 신청관리</h1>
+				</div>
+				<br><br><br>
+				
+				<div class="container">
+					<select id='searchFilter' name='noSubject' style="text-align: center; background-color: #fff;">
+						<option value="all">전체</option>
+				        <option value="rental">시설대관</option>
+				        <option value="volunteer">자원봉사</option>
+					</select>
+					<br><br>
+					<table class="table text-center">
+						<thead class="table-light">
+							<tr>
+								<th scope="col" class="col-1">신청번호</th>
+								<th scope="col" class="col-1">구분</th>
+								<th scope="col" class="col-4">신청글 제목</th>
+								<th scope="col" class="col-1">신청자</th>
+								<th scope="col" class="col-1">신청일자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="list : ${list}">
+								<td>[[${list.appNo}]]</td>
+								<th:block th:if="${list.appCateNo == 10}"><td>[시설대관]</td></th:block>
+								<th:block th:if="${list.appCateNo == 20}"><td>[자원봉사]</td></th:block>
+								<td>[[${list.appTitle}]]</td>
+								<td>[[${list.memName}]]</td>
+								<td>[[${list.appModifyDate}]]</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<!-- 페이지네이션 -->
+					<div style="margin-bottom:100px; margin-top: 50px;">
+				       	<ul class="pagination justify-content-center" th:with="loc=${loc}">
+				            <li class="page-item">
+				            	<a class="page-link" th:href="@{${loc}(page=${pi.currentPage-1})}" aria-label="Previous">
+				            		<span aria-hidden="true">&laquo;</span>
+				              	</a>
+				            </li>
+				            	<li class="page-item" th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}"><a class="page-link" th:href="@{${loc}(page=${p})}">[[${ p }]]</a></li>
+				            <li class="page-item">
+				            	<a class="page-link" th:href="@{${loc}(page=${pi.currentPage+1})}" aria-label="Next">
+				            		<span aria-hidden="true">&raquo;</span>
+				            	</a>
+				            </li>
+				    	</ul>
+				    </div>
+				</div>
+			</main>
+		</div>
+		
+	</div>
+	
+   	<script th:inline="Javascript">
+	   	document.getElementById('searchFilter').addEventListener('change', function(){
+	   		/*<![CDATA[*/
+			location.href = 'searchFilter.adm?category=' + this.value + "&page=" + /*[[${pi.currentPage}]]*/1;
+			/*]]>*/
+		})
+   	</script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script>
+</body>
+</html>
