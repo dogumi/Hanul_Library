@@ -42,8 +42,8 @@
 			</div>
 			
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 20px;">
-				<button class="btn btn-danger me-md-2" id="deleteBtn" type="button">삭제</button>
-				<button class="btn btn-secondary" type="button">이전</button>
+				<button class="btn btn-danger me-md-2" id="deleteBtn" type="button">신청취소</button>
+				<button class="btn btn-secondary" type="button" onclick="javascript:history.back();">이전</button>
 			</div>
 	</main>
 	
@@ -52,8 +52,9 @@
 	<script>
 		document.getElementById("deleteBtn").onclick = () => {
 			const appNo = document.getElementById("appNo").value;
-			console.log(appNo);
-			location.href = "deleteRentalApp.me?appNo=" + appNo;
+			if(confirm("정말 신청을 취소하시겠습니까?")) {
+				location.href = "deleteRentalApp.me?appNo=" + appNo;
+			}
 		}
 	</script>
 </body>

@@ -14,4 +14,52 @@
 		from application
 	</select>
 	
+	<select id="getAppListCount" resultType="_int">
+		select count(*)
+		from application
+		where app_cate_no = ${i}
+	</select>
+	
+	<select id="selectFilterApplication" resultType="Application">
+		select *
+		from application
+		join member on app_writer_no = mem_no
+		where app_cate_no = ${i}
+		order by app_no desc
+	</select>
+	
+	<select id="selectAppDetail" resultType="Application">
+		select *
+		from application
+		where app_no = ${appNo}
+	</select>
+	
+	<delete id="deleteApp">
+		delete from application
+		where app_no = ${appNo}
+	</delete>
+	
+	<select id="getNoticeListCount" resultType="_int">
+		select count(*)
+		from notice_board
+	</select>
+	
+	<select id="selectNotice" resultType="Notice">
+		select *
+		from notice_board
+		order by notice_no desc
+	</select>
+	
+	<select id="noticeListCount" resultType="_int">
+		select count(*)
+		from notice_board
+		where notice_category = #{cate}
+	</select>
+	
+	<select id="selectNoticeList" resultType="Notice">
+		select *
+		from notice_board
+		where notice_category = #{cate}
+		order by notice_no desc
+	</select>
 </mapper>

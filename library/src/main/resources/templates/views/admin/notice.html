@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:replace="~{common/navbar :: navbar}"></div>
+	<div th:replace="~{common/adminSymbol :: symbol}"></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="~{common/adminbar :: sidebar}"></div>
+			
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-top: 30px;">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2">관리자 페이지 - 공지사항 관리</h1>
+				</div>
+				<br><br><br>
+				
+				<div class="container">
+					<select id='searchFilter' name='noSubject' style="text-align: center; background-color: #fff;">
+						<option value="all" th:selected='${category == "all"}'>전체</option>
+				        <option value="notice" th:selected='${category == "notice"}'>공지사항</option>
+				        <option value="event" th:selected='${category == "event"}'>이벤트</option>
+				        <option value="news" th:selected='${category == "news"}'>새소식</option>
+					</select>
+					<br><br>
+					<table class="table text-center">
+						<thead class="table-light">
+							<tr>
+								<th scope="col" class="col-1">신청번호</th>
+								<th scope="col" class="col-1">말머리</th>
+								<th scope="col" class="col-4">신청글 제목</th>
+								<th scope="col" class="col-1">신청자</th>
+								<th scope="col" class="col-1">신청일자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="list : ${list}">
+								<td>[[${list.noticeNo}]]</td>
+								<td>[[${list.noticeCategory}]]</td>
+								<td>[[${list.noticeTitle}]]</td>
+								<td>관리자</td>
+								<td>[[${list.noticeModifyDate}]]</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<div class="d-grid gap-1 d-md-flex justify-content-md-end">
+						<button class="btn me-md-2" id="writeBtn" type="button" style="background: #7DA45C; color: white;">공지사항 작성</button>
+					</div>
+					
+					
+				    <div style="margin-bottom:100px; margin-top: 50px;">
+					    <ul class="pagination justify-content-center" th:with="loc=${loc}">
+					        <li class="page-item">
+					            <a class="page-link" th:href="@{${loc}(page=${pi.currentPage-1}, category=${category})}" th:if="${category != null}" aria-label="Previous">
+					                <span aria-hidden="true">&laquo;</span>
+					            </a>
+					            <a class="page-link" th:href="@{${loc}(page=${pi.currentPage-1})}" th:if="${category == null}" aria-label="Previous">
+					                <span aria-hidden="true">&laquo;</span>
+					            </a>
+					        </li>
+					        <li class="page-item" th:each="p : ${#numbers.sequence(pi.startPage, pi.endPage)}">
+					            <a class="page-link" th:href="@{${loc}(page=${p}, category=${category})}" th:if="${category != null}">[[${ p }]]</a>
+					            <a class="page-link" th:href="@{${loc}(page=${p})}" th:if="${category == null}">[[${ p }]]</a>
+					        </li>
+					        <li class="page-item">
+					            <a class="page-link" th:href="@{${loc}(page=${pi.currentPage+1}, category=${category})}" th:if="${category != null}" aria-label="Next">
+					                <span aria-hidden="true">&raquo;</span>
+					            </a>
+					            <a class="page-link" th:href="@{${loc}(page=${pi.currentPage+1})}" th:if="${category == null}" aria-label="Next">
+					                <span aria-hidden="true">&raquo;</span>
+					            </a>
+					        </li>
+					    </ul>
+					</div>
+				</div>
+			</main>
+		</div>
+		
+	</div>
+	
+   	<script th:inline="Javascript">
+	   	document.getElementById('searchFilter').addEventListener('change', function(){
+	   		/*<![CDATA[*/
+			location.href = 'searchFilterNotice.adm?category=' + this.value + "&page=" + /*[[${pi.currentPage}]]*/1;
+			/*]]>*/
+		})
+		
+		const tbody = document.querySelector('tbody');
+		const tds = tbody.querySelectorAll('td');
+		console.log(tds);
+		for(const td of tds){
+			td.addEventListener('click', function(){
+				const trTds = this.parentElement.querySelectorAll('td');
+				const appNo = trTds[0].innerText;
+				
+				/*<![CDATA[*/
+				location.href="selectAppDetail.adm?appNo=" + appNo + "&page=" + /*[[${pi.currentPage}]]*/1;
+				/*]]>*/
+			})
+		}
+		
+		document.getElementById("writeBtn").onclick = () => {
+			location.href = 'writeNoticeView.adm';
+		}
+		
+   	</script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script>
+</body>
+</html>

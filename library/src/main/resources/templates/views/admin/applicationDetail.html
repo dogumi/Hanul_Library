@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>신청광리 - 상세보기</title>
+</head>
+<body>
+
+	<div th:replace="~{common/navbar :: navbar}"></div>
+	<div th:replace="~{common/adminSymbol :: symbol}"></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="~{common/adminbar :: sidebar}"></div>
+			
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="padding-top: 30px;">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2">관리자 페이지 - 신청관리</h1>
+				</div>
+				<br><br><br>
+				
+				<input type="hidden" name="appNo" id="appNo" th:value="${content.appNo}"/>
+				
+				
+				<div class="container m-auto" >
+					<h3>제목 : [[${content.appTitle}]]</h3>
+					<br><br><br>
+					<textarea  rows="40" cols="100" name="appContent" style="border-radius: 10px; border: 1px solid #959595; resize:none;" readonly>[[${content.appContent}]]</textarea>
+
+					<div class="d-grid gap-2 d-md-flex justify-content-md-start" style="margin-top: 20px; ">
+						<button class="btn btn-danger me-md-2" id="deleteBtn" type="button">삭제</button>
+						<button class="btn btn-secondary" type="button" onclick="javascript:history.back();">이전</button>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+	
+	<script>
+		document.getElementById("deleteBtn").onclick = () => {
+			const appNo = document.getElementById("appNo").value;
+			if(confirm("정말 삭제하시겠습니까?")) {
+				location.href = "deleteApp.adm?appNo=" + appNo;
+			}
+			
+			
+		}
+	</script>
+</body>
+</html>

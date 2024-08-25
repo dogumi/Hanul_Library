@@ -20,9 +20,9 @@
 				
 				<div class="container">
 					<select id='searchFilter' name='noSubject' style="text-align: center; background-color: #fff;">
-						<option value="all">전체</option>
-				        <option value="rental">시설대관</option>
-				        <option value="volunteer">자원봉사</option>
+						<option value="all" th:selected='${category == "all"}'>전체</option>
+				        <option value="rental" th:selected='${category == "rental"}'>시설대관</option>
+				        <option value="volunteer" th:selected='${category == "volunteer"}'>자원봉사</option>
 					</select>
 					<br><br>
 					<table class="table text-center">
@@ -75,6 +75,20 @@
 			location.href = 'searchFilter.adm?category=' + this.value + "&page=" + /*[[${pi.currentPage}]]*/1;
 			/*]]>*/
 		})
+		
+		const tbody = document.querySelector('tbody');
+			const tds = tbody.querySelectorAll('td');
+			console.log(tds);
+			for(const td of tds){
+				td.addEventListener('click', function(){
+					const trTds = this.parentElement.querySelectorAll('td');
+					const appNo = trTds[0].innerText;
+					
+					/*<![CDATA[*/
+					location.href="selectAppDetail.adm?appNo=" + appNo + "&page=" + /*[[${pi.currentPage}]]*/1;
+					/*]]>*/
+				})
+			}
    	</script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script>
 </body>
