@@ -1,21 +1,27 @@
 package com.project.library.admin.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.library.admin.model.exception.AdminException;
 import com.project.library.admin.model.service.AdminService;
+import com.project.library.admin.model.vo.Employee;
 import com.project.library.board.model.vo.Notice;
 import com.project.library.board.model.vo.PageInfo;
 import com.project.library.common.Pagination;
 import com.project.library.member.model.vo.Application;
+import com.project.library.member.model.vo.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AdminController {
@@ -157,10 +163,249 @@ public class AdminController {
 		
 	}
 	
-	// 관리자 페이지 - 공지사항 작성
+	// 관리자 페이지 - 공지사항 관리(작성 페이지 이동)
 	@GetMapping("writeNoticeView.adm")
 	public String writeNoticeView() {
 		return "admin/writeNotice";
 	}
 	
+	// 관리자 페이지 - 공지사항 관리 (공지사항 작성)
+	@GetMapping("insertNotice.adm")
+	public String insertNotice(@RequestParam("category") String category, @RequestParam("title") String title, @RequestParam("content") String content, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		int memNo = loginUser.getMemNo();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("category", category);
+		map.put("title", title);
+		map.put("content", content);
+		map.put("memNo", memNo);
+		
+		int result = aService.insertNotice(map);
+		
+		if(result > 0 ) {
+			return "redirect:notice.adm";
+		} else {
+			throw new AdminException("게시글 작성에 실패했습니다.");
+		}
+	}
+	
+	// 관리자 페이지 - 공지사항 관리(상세보기)
+	@GetMapping("noticeDetail.adm")
+	public String noticeDetail(@RequestParam("noticeNo") int noticeNo, @RequestParam("page") int page, HttpSession session, Model model) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		
+		Notice notice = aService.noticeDetail(noticeNo);
+		
+		if(notice != null) {
+			model.addAttribute("n", notice);
+			model.addAttribute("page", page);
+			return "admin/noticeDetail";
+		} else {
+			throw new AdminException("게시글 상세보기를 실패했습니다.");
+		}
+	}
+	
+	//관리자 페이지 - 공지사항 관리 (수정 페이지 이동)
+	@GetMapping("updateNoticeView.adm")
+	public String updateNoticeView(@RequestParam("noticeNo") int noticeNo, @RequestParam("page") int page, @RequestParam("category") String category,
+								@RequestParam("title") String title, @RequestParam("content") String content, HttpSession session, Model model) {
+		
+		Notice notice = aService.noticeDetail(noticeNo);
+		
+		if(notice != null) {
+			model.addAttribute("n", notice);
+			model.addAttribute("page", page);
+			model.addAttribute("category", category);
+			
+			return "admin/noticeUpdate";
+		} else {
+			throw new AdminException("게시글 불러오기를 실패했습니다.");
+		}
+	}
+	
+	// 관리자 페이지 - 공지사항 관리 (게시글 수정)
+	@GetMapping("updateNotice.adm")
+	public String updateNotice(@RequestParam("title") String title, @RequestParam("content") String content,@RequestParam("page") int page,
+								@RequestParam("category") String category, @RequestParam("noticeNo") int noticeNo,
+								Model model) {
+		
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		map.put("title", title);
+		map.put("content", content);
+		map.put("category", category);
+		map.put("noticeNo", noticeNo);
+		
+		int result = aService.updateNotice(map);
+		
+		if(result > 0) {
+			return "redirect:noticeDetail.adm?noticeNo=" + noticeNo + "&page=" + page ;
+		} else {
+			throw new AdminException("게시글 수정에 실패했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 부서관리(운영관리부)
+	@GetMapping("deptOper.adm")
+	public String deptOper(Model model) {
+		int deptNo = 30;
+		ArrayList<Employee> list = aService.selectDept(deptNo);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("deptNo", deptNo);
+			return "admin/deptOper";
+		} else {
+			throw new AdminException("부서정보를 불러오는 데 실패했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 부서관리(자료관리부)
+	@GetMapping("deptData.adm")
+	public String deptData(Model model) {
+		int deptNo = 40;
+		ArrayList<Employee> list = aService.selectDept(deptNo);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("deptNo", deptNo);
+			return "admin/deptData";
+		} else {
+			throw new AdminException("부서정보를 불러오는 데 실패했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 부서관리(정보서비스부)
+	@GetMapping("deptInfo.adm")
+	public String deptInfo(Model model) {
+		int deptNo = 50;
+		ArrayList<Employee> list = aService.selectDept(deptNo);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("deptNo", deptNo);
+			return "admin/deptInfo";
+		} else {
+			throw new AdminException("부서정보를 불러오는 데 실패했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 부서관리(프로그램기획부)
+	@GetMapping("deptProg.adm")
+	public String deptProg(Model model) {
+		int deptNo = 60;
+		ArrayList<Employee> list = aService.selectDept(deptNo);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("deptNo", deptNo);
+			return "admin/deptProg";
+		} else {
+			throw new AdminException("부서정보를 불러오는 데 실패했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 부서관리(이용자지원부)
+	@GetMapping("deptSuppt.adm")
+	public String deptSuppt(Model model) {
+		int deptNo = 70;
+		ArrayList<Employee> list = aService.selectDept(deptNo);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("deptNo", deptNo);
+			return "admin/deptSuppt";
+		} else {
+			throw new AdminException("부서정보를 불러오는 데 실패했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 부서관리(부서수정)
+	@PostMapping("updateDept.adm")
+	public String updateDept(@RequestParam("deptNo") int deptNo, @RequestParam("position[]") List<String> positions, @RequestParam("phone[]") List<String> phones,
+							@RequestParam("duties[]") List<String> duties, @RequestParam("empNo[]") List<String> empNos, @RequestParam("path") String path) {
+		int result = 0;
+		
+		for (int i = 0; i < positions.size(); i++) {
+			String position = positions.get(i);
+			String phone = phones.get(i);
+			String duty = duties.get(i);
+			String empNo = empNos.get(i);
+			
+			HashMap<Object, Object> map = new HashMap<Object, Object>();
+			map.put("position", position);
+			map.put("phone", phone);
+			map.put("duty", duty);
+			map.put("deptNo", deptNo);
+			map.put("empNo", empNo);
+			
+			result = aService.updateDept(map);
+		}
+		
+		if(result > 0) {
+			return "redirect:" + path + ".adm" ;
+		} else {
+			throw new AdminException("부서정보 업데이트에 실패했습니다.");
+		}
+	}
+	
+	@GetMapping("addEmp.adm")
+	public String addEmp(@RequestParam("path") String path, @RequestParam("deptNo") String deptNo, Model model) {
+		
+		String deptName = null;
+		if(deptNo.equals("30")) {
+			deptName = "운영관리부";
+		} else if (deptNo.equals("40")) {
+			deptName = "자료관리부";
+		} else if (deptNo.equals("50")) {
+			deptName = "정보서비스부";
+		} else if (deptNo.equals("60")) {
+			deptName = "프로그램기획부";
+		} else if (deptNo.equals("70")) {
+			deptName = "이용자지원부";
+		}
+		
+		model.addAttribute("path", path);
+		model.addAttribute("deptNo", deptNo);
+		model.addAttribute("deptName", deptName);
+		
+		return "admin/addEmp";
+	}
+	
+	@PostMapping("insertEmp.adm")
+	public String insertEmp(@RequestParam("deptNo") String deptNo, @RequestParam("empName") String name, @RequestParam("empPhone") String phone,
+							@RequestParam("empPosition") String position, @RequestParam("empDuties") String duty, @RequestParam("path") String path ,Model model) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("deptNo", deptNo);
+		map.put("name", name);
+		map.put("phone", phone);
+		map.put("position",	position);
+		map.put("duty", duty);
+		
+		int result = aService.insertEmp(map);
+		
+		if(result > 0) {
+			return "redirect:" + path + ".adm";
+		} else {
+			throw new AdminException("직원추가 작업 중 오류가 발생했습니다.");
+		}
+	}
+	
+	@GetMapping("deleteEmp.adm")
+	public String delteEmp(@RequestParam("checked") List<String> checkedEmpNos, @RequestParam("path") String path) {
+		System.out.println(checkedEmpNos);
+		
+		int result = 0;
+		for (int i = 0; i < checkedEmpNos.size(); i++) {
+			String empNo = checkedEmpNos.get(i);
+			
+			result = aService.deleteEmp(empNo);
+		}
+		
+		if(result > 0) {
+			return "redirect:" + path + ".adm";
+		} else {
+			throw new AdminException("직원정보 삭제 중 오류가 발생했습니다.");
+		}
+	}
 }

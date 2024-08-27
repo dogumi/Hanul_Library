@@ -27,7 +27,7 @@
 	        </a>
 	      </li>
 	      <li>
-	        <a href="#" class="nav-link active" style="background: #7DA45C;">
+	        <a href="departmentView.bo" class="nav-link active" style="background: #7DA45C;">
 	          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
 	          부서 안내
 	        </a>
@@ -45,129 +45,29 @@
 		<div style="border-bottom: 5px solid #7DA45C;"></div>
 		<br><br><br>
 		
-		<h2>운영관리부</h2><br>
-		<table class="table text-center">
-			<thead>
-				<tr style="border-top: 2px solid black;">
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">직급명</th>
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">전화번호</th>
-					<th scope="col" style="background-color: #F8F8F8;">담당업무</th>
-					
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">부장</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">도서관 전반 운영 관리, 예산 및 행정 업무 총괄</td>
-				</tr>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">과장</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">인사 관리, 시설 유지보수 및 안전 관리</td>
-				</tr>
-			</tbody>
-		</table>
-		<br><br><br>
+		<th:block th:each="d : ${d}">
+			<h2>[[${d.deptName}]]</h2><br>
+			<table class="table text-center">
+				<thead>
+					<tr style="border-top: 2px solid black;">
+						<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">직급명</th>
+						<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">전화번호</th>
+						<th scope="col" style="background-color: #F8F8F8;">담당업무</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="list : ${list}" th:if="${list.deptName} == ${d.deptName}">
+						<td scope="col" style="border-right: 1px solid gainsboro;">[[${list.empPosition}]]</td>
+						<td scope="col" style="border-right: 1px solid gainsboro;">[[${list.empPhone}]]</td>
+						<td scope="col">[[${list.empDuties}]]</td>
+					</tr>
+				</tbody>
+			</table>
+			<br><br><br>
+		</th:block>
 		
-		<h2>자료관리부</h2><br>
-		<table class="table text-center">
-			<thead>
-				<tr style="border-top: 2px solid black;">
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">직급명</th>
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">전화번호</th>
-					<th scope="col" style="background-color: #F8F8F8;">담당업무</th>
-					
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">부장</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">도서 및 자료의 수집, 정리, 보존 관리</td>
-				</tr>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">대리</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">도서 분류 및 데이터베이스 관리, 자료 대출 / 반납 처리</td>
-				</tr>
-			</tbody>
-		</table>
-		<br><br><br>
 		
-		<h2>정보 서비스부</h2><br>
-		<table class="table text-center">
-			<thead>
-				<tr style="border-top: 2px solid black;">
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">직급명</th>
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">전화번호</th>
-					<th scope="col" style="background-color: #F8F8F8;">담당업무</th>
-					
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">부장</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">정보 제공 서비스, 전자자료 관리 및 시스템 운영</td>
-				</tr>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">대리</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">이용자 문의 응대, 도서 검색 시스템 관리, 온라인 서비스 지원</td>
-				</tr>
-			</tbody>
-		</table>
-		<br><br><br>
-		
-		<h2>프로그램 기획부</h2><br>
-		<table class="table text-center">
-			<thead>
-				<tr style="border-top: 2px solid black;">
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">직급명</th>
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">전화번호</th>
-					<th scope="col" style="background-color: #F8F8F8;">담당업무</th>
-					
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">부장</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">문화 프로그램 및 이벤트 기획, 지역 커뮤니티 연계 활동</td>
-				</tr>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">대리</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">독서 모임 운영, 어린이 및 청소년 프로그램 관리, 행사 홍보</td>
-				</tr>
-			</tbody>
-		</table>
-		<br><br><br>
-		
-		<h2>이용자 지원부</h2><br>
-		<table class="table text-center">
-			<thead>
-				<tr style="border-top: 2px solid black;">
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">직급명</th>
-					<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">전화번호</th>
-					<th scope="col" style="background-color: #F8F8F8;">담당업무</th>
-					
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">부장</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">이용자 서비스 개선, 이용자 만족도 조사 및 피드백 관리</td>
-				</tr>
-				<tr>
-					<td scope="col" style="border-right: 1px solid gainsboro;">대리</td>
-					<td scope="col" style="border-right: 1px solid gainsboro;">031-123-4567</td>
-					<td scope="col">회원 관리, 이용자 교육 프로그램 운영, 도서관 시설 예약 관리, 봉사활동 관리</td>
-				</tr>
-			</tbody>
-		</table>
 		<br><br><br>
 		
 	</main>

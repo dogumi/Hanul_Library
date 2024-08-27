@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.library.admin.model.vo.Employee;
 import com.project.library.board.model.dao.BoardMapper;
 import com.project.library.board.model.vo.Notice;
 import com.project.library.board.model.vo.PageInfo;
@@ -49,6 +50,16 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int insertVolunteerApp(HashMap<Object, String> map) {
 		return bMapper.insertVolunteerApp(map);
+	}
+
+	@Override
+	public ArrayList<Employee> selectDept() {
+		return bMapper.selectDept();
+	}
+
+	@Override
+	public ArrayList<Employee> selectDeptName() {
+		return bMapper.selectDeptName();
 	}
 
 }

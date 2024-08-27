@@ -38,4 +38,15 @@
     	insert into application
     	values(app_no.nextval, ${writerNo}, 20, #{appTitle}, #{appContent}, sysdate, sysdate)
     </insert>
+    
+    <select id="selectDept" resultType="Employee">
+    	select *
+    	from employee
+    	join department using(dept_no)
+    </select>
+    
+    <select id="selectDeptName" resultType="Employee">
+    	select dept_name
+    	from department
+    </select>
 </mapper>

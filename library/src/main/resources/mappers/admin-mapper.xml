@@ -62,4 +62,51 @@
 		where notice_category = #{cate}
 		order by notice_no desc
 	</select>
+	
+	<insert id="insertNotice">
+		insert into notice_board
+		values(notice_no.nextval, ${memNo}, #{category}, #{title}, #{content}, 'Y', 0, sysdate, sysdate)
+	</insert>
+	
+	<select id="noticeDetail" resultType="Notice">
+		select *
+		from notice_board
+		where notice_no = ${noticeNo} and notice_status = 'Y'
+	</select>
+	
+	
+	<update id="updateNotice">
+		update notice_board
+		set notice_title = #{title}, notice_content = #{content}, notice_category = #{category}, notice_modify_date = sysdate
+		where notice_no = ${noticeNo} and notice_status = 'Y'
+	</update>
+	
+	<select id="selectEmployee" resultType="Employee">
+		select *
+		from employee
+		join department using (dept_no)
+	</select>
+	
+	<select id="selectDept" resultType="Employee">
+		select *
+		from employee
+		join department using (dept_no)
+		where dept_no = ${deptNo}
+	</select>
+	
+	<update id="updateDept">
+		update employee
+		set emp_position = #{position}, emp_phone = #{phone}, emp_duties = #{duty}
+		where dept_no = ${deptNo} and emp_no = ${empNo}
+	</update>
+	
+	<insert id="insertEmp">
+		insert into employee
+		values(emp_no.nextval, ${deptNo}, #{name}, #{phone}, #{position}, #{duty})
+	</insert>
+	
+	<delete id="deleteEmp">
+		delete from employee
+		where emp_no = ${empNo}
+	</delete>
 </mapper>

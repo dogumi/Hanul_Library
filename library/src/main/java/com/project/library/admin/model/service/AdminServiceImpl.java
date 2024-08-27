@@ -1,12 +1,14 @@
 package com.project.library.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.library.admin.model.dao.AdminMapper;
+import com.project.library.admin.model.vo.Employee;
 import com.project.library.board.model.vo.Notice;
 import com.project.library.board.model.vo.PageInfo;
 import com.project.library.member.model.vo.Application;
@@ -73,6 +75,46 @@ public class AdminServiceImpl implements AdminService{
 		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return aMapper.selectNoticeList(cate, rowBounds);
+	}
+
+	@Override
+	public int insertNotice(HashMap<String, Object> map) {
+		return aMapper.insertNotice(map);
+	}
+
+	@Override
+	public Notice noticeDetail(int noticeNo) {
+		return aMapper.noticeDetail(noticeNo);
+	}
+
+	@Override
+	public int updateNotice(HashMap<Object, Object> map) {
+		return aMapper.updateNotice(map);
+	}
+
+	@Override
+	public ArrayList<Employee> selectEmployee() {
+		return aMapper.selectEmployee();
+	}
+
+	@Override
+	public ArrayList<Employee> selectDept(int deptNo) {
+		return aMapper.selectDept(deptNo);
+	}
+
+	@Override
+	public int updateDept(HashMap<Object, Object> map) {
+		return aMapper.updateDept(map);
+	}
+
+	@Override
+	public int insertEmp(HashMap<String, Object> map) {
+		return aMapper.insertEmp(map);
+	}
+
+	@Override
+	public int deleteEmp(String empNo) {
+		return aMapper.deleteEmp(empNo);
 	}
 
 	

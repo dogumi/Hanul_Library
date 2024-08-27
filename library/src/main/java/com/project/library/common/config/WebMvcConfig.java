@@ -5,6 +5,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.project.library.common.interceptor.CheckAdminInterceptor;
 import com.project.library.common.interceptor.CheckLoginInterceptor;
 
 @Configuration
@@ -27,9 +28,9 @@ public class WebMvcConfig implements WebMvcConfigurer{
 						"/myRentalApp.me", "/myVolunteerApp.me", "/selectRentalApp.me", "/selectVolunteerApp.me",
 						"/deleteRentalApp.me", "/deleteVolunteerApp.me");
 		// 관리자용
-//		registry.addInterceptor(new CheckAdminInterceptor())
-//				.addPathPatterns("/*.adm");
-//		
+		registry.addInterceptor(new CheckAdminInterceptor())
+				.addPathPatterns("/*.adm");
+		
 				
 	}
 }

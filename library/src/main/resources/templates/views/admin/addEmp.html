@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>TITLE</title>
+</head>
+<body>
+
+<div th:replace="~{common/navbar :: navbar}"></div>
+	<div th:replace="~{common/adminSymbol :: symbol}"></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="~{common/adminbar :: sidebar}"></div>
+			
+			<main class="col-md-10 ms-sm-auto col-lg-10 px-md-4" style="padding-top: 30px;">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2">관리자 페이지 - 부서관리</h1>
+				</div>
+				<br><br><br>
+				
+				<div class="container">
+					<form action="insertEmp.adm" method="POST">
+						<input type="hidden" id="deptNo" name="deptNo" th:value="${deptNo}"/>
+						<input type="hidden" id="path" name="path" th:value="${path}"/>
+						<div class="row g-3">
+							<div class="col-12">
+								<label for="deptNo" class="form-label">부서명</label>
+								<input type="text" class="form-control" id="deptName" name="deptName" th:value="${deptName}" readonly>
+							</div>
+							
+							<div class="col-12">
+								<label for="empName" class="form-label">직원명</label>
+								<input type="text" class="form-control" id="empName" name="empName" required>
+							</div>
+							
+							<div class="col-12">
+								<label for="empPhone" class="form-label">전화번호</label>
+								<input type="text" class="form-control" id="empPhone" name="empPhone" required>
+								<label id="empPhone">'-'를 포함하여 입력해주세요.</label>
+							</div>
+							
+							<div class="col-12">
+								<label for="empPosition" class="form-label">직급</label>
+								<input type="text" class="form-control" id="empPosition" name="empPosition" required>
+							</div>
+						
+							<div class="col-12">
+								<label for="empDuties" class="form-label">담당업무</label>
+								<input type="text" class="form-control" id="empDuties" name="empDuties" required/>
+							</div>
+							
+							<br><br><br><br><br>
+							
+							<button class="w-100 btn btn-primary btn-lg" type="submit" id="submitBtn" style="background: #7DA45C; color: white;">확인</button>
+						</div>
+					</form>
+				</div>
+				
+			</main>
+		</div>
+	</div>
+	
+	<script>
+		
+	</script>
+</body>
+</html>

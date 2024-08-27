@@ -3,6 +3,7 @@ package com.project.library.admin.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.project.library.admin.model.vo.Employee;
 import com.project.library.board.model.vo.Notice;
 import com.project.library.board.model.vo.PageInfo;
 import com.project.library.member.model.vo.Application;
@@ -29,5 +30,21 @@ public interface AdminService {
 	int noticeListCount(String cate);
 
 	ArrayList<Notice> selectNoticeList(String cate, PageInfo pi);
+
+	int insertNotice(HashMap<String, Object> map);
+
+	Notice noticeDetail(int noticeNo);
+
+	int updateNotice(HashMap<Object, Object> map);
+
+	ArrayList<Employee> selectEmployee();
+
+	ArrayList<Employee> selectDept(int deptNo);
+
+	int updateDept(HashMap<Object, Object> map);
+
+	int insertEmp(HashMap<String, Object> map);
+
+	int deleteEmp(String empNo);
 
 }

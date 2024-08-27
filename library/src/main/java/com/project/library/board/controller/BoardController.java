@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.library.admin.model.vo.Employee;
 import com.project.library.board.model.exception.BoardException;
 import com.project.library.board.model.service.BoardService;
 import com.project.library.board.model.vo.Notice;
@@ -34,8 +35,17 @@ public class BoardController {
     
     // 부서 안내 이동
     @GetMapping("departmentView.bo")
-    public String departmentView() {
-    	return "intro/department";
+    public String departmentView(Model model) {
+    	ArrayList<Employee> list = bService.selectDept();
+    	ArrayList<Employee> deptName = bService.selectDeptName();
+    	
+    	if(list != null) { 
+    		model.addAttribute("list", list);
+    		model.addAttribute("d", deptName);
+    		return "intro/department";
+    	} else {
+    		throw new BoardException("부서정보를 불러올 수 없습니다.");
+    	}
     }
     
     

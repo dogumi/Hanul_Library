@@ -95,10 +95,10 @@
 		for(const td of tds){
 			td.addEventListener('click', function(){
 				const trTds = this.parentElement.querySelectorAll('td');
-				const appNo = trTds[0].innerText;
+				const noticeNo = trTds[0].innerText;
 				
 				/*<![CDATA[*/
-				location.href="selectAppDetail.adm?appNo=" + appNo + "&page=" + /*[[${pi.currentPage}]]*/1;
+				location.href="noticeDetail.adm?noticeNo=" + noticeNo + "&page=" + /*[[${pi.currentPage}]]*/1;
 				/*]]>*/
 			})
 		}

@@ -18,20 +18,21 @@
 				</div>
 				<br><br><br>
 				
-				<form action="insertNotice.adm">
+				<form action="updateNotice.adm">
 					<div class="container" >
-						<input type="text" placeholder=" 제목" name="title" style="width:70%; border: 1px solid #959595; border-radius: 5px; height:30px; "/>
-							<select id='searchFilter' name='category' style="text-align: center; background-color: #fff; margin-left: 10px;">
-						        <option value="공지사항">공지사항</option>
-						        <option value="이벤트">이벤트</option>
-						        <option value="새소식">새소식</option>
+						<input type="hidden" th:value="${n.noticeNo}" name="noticeNo"/>
+						<input type="text" placeholder=" 제목" name="title" style="width:70%; border: 1px solid #959595; border-radius: 5px; height:30px;" th:value="${n.noticeTitle}"/>
+							<select id='searchFilter' name='category' style="text-align: center; background-color: #fff; margin-left: 10px;" >
+						        <option value="공지사항" th:selected='${category == "공지사항"}'>공지사항</option>
+						        <option value="이벤트" th:selected='${category == "이벤트"}'>이벤트</option>
+						        <option value="새소식" th:selected='${category == "새소식"}'>새소식</option>
 							</select>
 						<br><br><br>
 						
-						<textarea  rows="40" cols="100" name="content" style="border-radius: 10px; border: 1px solid #959595; resize:none;"></textarea>
+						<textarea  rows="40" cols="100" name="content" style="border-radius: 10px; border: 1px solid #959595; resize:none;">[[${n.noticeContent}]]</textarea>
 						
 						<div class="d-grid gap-1 col-5 mx-auto" style="margin-bottom: 60px; margin-top: 30px; padding-right: 300px;">
-							<button class="btn" id="btn" type="submit" style="background: #7DA45C; color: white;">작성완료</button>
+							<button class="btn" id="btn" type="submit" style="background: #7DA45C; color: white;">수정완료</button>
 						</div>
 					</div>
 					
