@@ -49,4 +49,9 @@
     	select dept_name
     	from department
     </select>
+    
+    <select id="selectGreeting" resultType="Greeting">
+    	select *
+    	from greeting
+   	</select>
 </mapper>

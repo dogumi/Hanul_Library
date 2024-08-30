@@ -109,4 +109,62 @@
 		delete from employee
 		where emp_no = ${empNo}
 	</delete>
+	
+	<select id="selectGreeting" resultType="Greeting">
+		select *
+		from greeting
+	</select>
+	
+	<update id="updateGreeting"> 
+		update greeting
+		set greeting_content = #{content}
+	</update>
+	
+	<select id="getMemCount" resultType="_int">
+		select count(*)
+		from member
+		where mem_grade = #{grade}
+	</select>
+	
+	<select id="selectMem" resultType="Member">
+		select *
+		from member
+		where mem_grade = #{grade}
+	</select>
+	
+	<update id="updateActive">
+		update member
+		set mem_Active = #{state}
+		where mem_no = ${memNum}
+	</update>
+	
+	<update id="changeGrade">
+		update member
+		set mem_Grade = #{grade}
+		where mem_no = ${memNo}
+	</update>
+	
+	<select id="searchMemCount" resultType="_int">
+		select count(*)
+		from member
+		where mem_grade = #{grade} 
+		and (
+          mem_id LIKE '%' || ${search} || '%'
+          OR mem_name LIKE '%' || ${search} || '%'
+          OR mem_phone LIKE '%' || ${search} || '%'
+          OR mem_no LIKE '%' || ${search} || '%'
+        )
+	</select>
+	
+	<select id="searchMem" resultType="Member">
+		select *
+		from member
+		where mem_grade = #{grade}
+		and (
+	      mem_id LIKE '%' || ${search} || '%' 
+          OR mem_name LIKE '%' || ${search} || '%'
+          OR mem_phone LIKE '%' || ${search} || '%'
+          OR mem_no LIKE '%' || ${search} || '%'
+        )
+	</select>
 </mapper>

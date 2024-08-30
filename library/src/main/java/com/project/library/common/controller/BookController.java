@@ -20,10 +20,13 @@ import com.project.library.common.model.vo.NaverResultVO;
 
 @Controller
 public class BookController {
+	
+	private final String CLIENT_ID = "발급받은 CLIENT_ID";
+    private final String CLIENT_SECRET = "발급받은 CLIENT_SECRET";
 
 	// 도서 리스트 페이지 이동
     @GetMapping("booksearch.book")
-    public String bookList() {
+    public String bookList(Model model) {
     	
     	
 //    	String clientId = "nGLQmVoQKaRg1ej9ex2m"; 		

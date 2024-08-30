@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.library.admin.model.vo.Employee;
+import com.project.library.admin.model.vo.Greeting;
 import com.project.library.board.model.dao.BoardMapper;
 import com.project.library.board.model.vo.Notice;
 import com.project.library.board.model.vo.PageInfo;
@@ -60,6 +61,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public ArrayList<Employee> selectDeptName() {
 		return bMapper.selectDeptName();
+	}
+
+	@Override
+	public Greeting selectGreeting() {
+		return bMapper.selectGreeting();
 	}
 
 }

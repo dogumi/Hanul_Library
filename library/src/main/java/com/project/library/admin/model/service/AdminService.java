@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.project.library.admin.model.vo.Employee;
+import com.project.library.admin.model.vo.Greeting;
 import com.project.library.board.model.vo.Notice;
 import com.project.library.board.model.vo.PageInfo;
 import com.project.library.member.model.vo.Application;
@@ -46,5 +47,22 @@ public interface AdminService {
 	int insertEmp(HashMap<String, Object> map);
 
 	int deleteEmp(String empNo);
+
+	Greeting selectGreeting();
+
+	int updateGreeting(String content);
+
+	ArrayList<Member> selectMem(String grade, PageInfo pi);
+
+	int getMemCount(String grade);
+
+	int updateActive(HashMap<String, Object> map);
+
+	int changeGrade(HashMap<String, Object> map);
+
+	int searchMemCount(HashMap<String, Object> map);
+
+	ArrayList<Member> searchMem(HashMap<String, Object> map);
+
 
 }

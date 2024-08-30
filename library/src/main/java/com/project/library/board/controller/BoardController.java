@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.library.admin.model.vo.Employee;
+import com.project.library.admin.model.vo.Greeting;
 import com.project.library.board.model.exception.BoardException;
 import com.project.library.board.model.service.BoardService;
 import com.project.library.board.model.vo.Notice;
@@ -29,7 +30,12 @@ public class BoardController {
     
     // 인사말 이동
     @GetMapping("greetingView.bo")
-    public String greetingView() {
+    public String greetingView(Model model) {
+    	Greeting gre = bService.selectGreeting();
+    	
+    	if(gre != null) {
+    		model.addAttribute("gre", gre);
+    	}
         return "intro/greeting";
     }
     

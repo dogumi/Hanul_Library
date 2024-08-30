@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.project.library.admin.model.dao.AdminMapper;
 import com.project.library.admin.model.vo.Employee;
+import com.project.library.admin.model.vo.Greeting;
 import com.project.library.board.model.vo.Notice;
 import com.project.library.board.model.vo.PageInfo;
 import com.project.library.member.model.vo.Application;
+import com.project.library.member.model.vo.Member;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -117,6 +119,51 @@ public class AdminServiceImpl implements AdminService{
 		return aMapper.deleteEmp(empNo);
 	}
 
+	@Override
+	public Greeting selectGreeting() {
+		return aMapper.selectGreeting();
+	}
+
+	@Override
+	public int updateGreeting(String content) {
+		return aMapper.updateGreeting(content);
+	}
+
+	@Override
+	public ArrayList<Member> selectMem(String grade, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return aMapper.selectMem(grade, rowBounds);
+	}
+
+	@Override
+	public int getMemCount(String grade) {
+		return aMapper.getMemCount(grade);
+	}
+
+	@Override
+	public int updateActive(HashMap<String, Object> map) {
+		return aMapper.updateActive(map);
+	}
+
+	@Override
+	public int changeGrade(HashMap<String, Object> map) {
+		return aMapper.changeGrade(map);
+	}
+
+	@Override
+	public int searchMemCount(HashMap<String, Object> map) {
+		return aMapper.searchMemCount(map);
+	}
+
+	@Override
+	public ArrayList<Member> searchMem(HashMap<String, Object> map) {
+		return aMapper.searchMem(map);
+	}
+
+
+
+	
 	
 	
 }

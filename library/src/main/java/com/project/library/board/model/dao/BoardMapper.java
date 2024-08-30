@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import com.project.library.admin.model.vo.Employee;
+import com.project.library.admin.model.vo.Greeting;
 import com.project.library.board.model.vo.Notice;
 
 @Mapper
@@ -27,5 +28,7 @@ public interface BoardMapper {
 	ArrayList<Employee> selectDept();
 
 	ArrayList<Employee> selectDeptName();
+
+	Greeting selectGreeting();
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.project.library.admin.model.exception.AdminException;
 import com.project.library.admin.model.service.AdminService;
 import com.project.library.admin.model.vo.Employee;
+import com.project.library.admin.model.vo.Greeting;
 import com.project.library.board.model.vo.Notice;
 import com.project.library.board.model.vo.PageInfo;
 import com.project.library.common.Pagination;
@@ -112,7 +113,9 @@ public class AdminController {
 	@GetMapping("notice.adm")
 	public String noticeView(@RequestParam(value="page", defaultValue="1") int currentPage, Model model, HttpServletRequest request) {
 		int listCount = aService.getNoticeListCount();
+		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 15);
+		
 		ArrayList<Notice> list = aService.selectNotice(pi);
 		
 		if(list != null) {
@@ -349,6 +352,7 @@ public class AdminController {
 		}
 	}
 	
+	// 관리자페이지 - 직원추가 폼으로 이동
 	@GetMapping("addEmp.adm")
 	public String addEmp(@RequestParam("path") String path, @RequestParam("deptNo") String deptNo, Model model) {
 		
@@ -372,6 +376,7 @@ public class AdminController {
 		return "admin/addEmp";
 	}
 	
+	// 관리자페이지 - 직원추가
 	@PostMapping("insertEmp.adm")
 	public String insertEmp(@RequestParam("deptNo") String deptNo, @RequestParam("empName") String name, @RequestParam("empPhone") String phone,
 							@RequestParam("empPosition") String position, @RequestParam("empDuties") String duty, @RequestParam("path") String path ,Model model) {
@@ -391,9 +396,9 @@ public class AdminController {
 		}
 	}
 	
+	// 관리자페이지 - 직원 삭제
 	@GetMapping("deleteEmp.adm")
 	public String delteEmp(@RequestParam("checked") List<String> checkedEmpNos, @RequestParam("path") String path) {
-		System.out.println(checkedEmpNos);
 		
 		int result = 0;
 		for (int i = 0; i < checkedEmpNos.size(); i++) {
@@ -407,5 +412,182 @@ public class AdminController {
 		} else {
 			throw new AdminException("직원정보 삭제 중 오류가 발생했습니다.");
 		}
+	}
+	
+	// 관리자 페이지 - 인사말 관리 이동
+	@GetMapping("greeting.adm")
+	public String greeting(Model model) {
+		Greeting g = aService.selectGreeting();
+		
+		if(g != null) {
+			model.addAttribute("g", g);
+			return "admin/greetingAdmin";
+		} else {
+			throw new AdminException("인사말을 조회하는 데 실패했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 인사말 관리 (수정)
+	@PostMapping("updateGreeting.adm")
+	public String updateGreeting(@RequestParam("content") String content, Model model) {
+		int result = aService.updateGreeting(content);
+		
+		if(result > 0) {
+			return "redirect:greeting.adm";
+		} else {
+			throw new AdminException("인사말 업데이트 중 오류가 발생했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 회원관리 (회원)
+	@GetMapping("memConsumer.adm")
+	public String memConsumer(@RequestParam(value="page", defaultValue="1") int currentPage, Model model, HttpServletRequest request) {
+		String grade = "CONSUMER";
+		
+		int listCount = aService.getMemCount(grade);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 15);
+		ArrayList<Member> m = aService.selectMem(grade, pi);
+		
+		if(m != null) {
+			model.addAttribute("m", m);
+			model.addAttribute("pi", pi);
+			model.addAttribute("loc", request.getRequestURI());
+			
+			return "admin/memConsumer";
+		} else {
+			throw new AdminException("회원정보를 불러오는 데 실패했습니다.");
+		}
+		
+	}
+	
+	// 관리자페이지 - 회원관리 (관리지)
+	@GetMapping("memManager.adm")
+	public String memManager(@RequestParam(value="page", defaultValue="1") int currentPage, Model model, HttpServletRequest request) {
+		String grade = "MANAGER";
+		
+		int listCount = aService.getMemCount(grade);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 15);
+		ArrayList<Member> m = aService.selectMem(grade, pi);
+		
+		if(m != null) {
+			model.addAttribute("m", m);
+			model.addAttribute("pi", pi);
+			model.addAttribute("loc", request.getRequestURI());
+			
+			return "admin/memManager";
+		} else {
+			throw new AdminException("관리자 정보를 불러오는 데 실패했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 회원관리 (계정비활성화)
+	@GetMapping("activeOff.adm")
+	public String activeOff(@RequestParam("memberNumbers") List<String> memberNumbers, @RequestParam("page") int page, @RequestParam("path") String path, Model model) {
+		String state = "N";
+		int result = 0;
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		for(int i = 0; i < memberNumbers.size(); i++) {
+			String memNum = memberNumbers.get(i);
+			map.put("memNum", memNum);
+			map.put("state", state);
+			
+			result = aService.updateActive(map);
+		}
+		
+		if(result > 0) {
+			return "redirect:" + path + ".adm";
+		} else {
+			throw new AdminException("계정 비활성화 중 오류가 발생했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 회원관리 (계정활성화)
+	@GetMapping("activeOn.adm")
+	public String activeOn(@RequestParam("memberNumbers") List<String> memberNumbers, @RequestParam("page") int page, @RequestParam("path") String path, Model model) {
+		String state = "Y";
+		int result = 0;
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		for(int i = 0; i < memberNumbers.size(); i++) {
+			String memNum = memberNumbers.get(i);
+			map.put("memNum", memNum);
+			map.put("state", state);
+			
+			result = aService.updateActive(map);
+		}
+		
+		if(result > 0) {
+			return "redirect:" + path + ".adm";
+		} else {
+			throw new AdminException("계정 비활성화 중 오류가 발생했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 회원관리 (회원등급 변경)
+	@GetMapping("changeGrade.adm")
+	public String changeGrade(@RequestParam("memberNumbers") List<String> memberNumbers, @RequestParam("page") int page, @RequestParam("path") String path, Model model) {
+		
+		String grade = null;
+		int result = 0;
+		if(path.equals("memConsumer")) {
+			grade = "MANAGER";
+		} else if (path.equals("memManager")) {
+			grade = "CONSUMER";
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		for(int i = 0; i < memberNumbers.size(); i++) {
+			String memNo = memberNumbers.get(i);
+			
+			map.put("grade", grade);
+			map.put("memNo", memNo);
+			
+			result = aService.changeGrade(map);
+		}
+		
+		if(result > 0) {
+			return "redirect:" + path + ".adm";
+		} else {
+			throw new AdminException("회원 등급 변경에 실패했습니다.");
+		}
+	}
+	
+	// 관리자페이지 - 회원관리 (회원검색)
+	@GetMapping("searchMem.adm")
+	public String searchMem(@RequestParam("search") String search, @RequestParam("path") String path, Model model, @RequestParam(value="page", defaultValue="1") int currentPage
+			, HttpServletRequest request) {
+		String grade = null;
+		
+		if(path.equals("memConsumer")) {
+			grade = "CONSUMER";
+		} else if(path.equals("memManager")) {
+			grade = "MANAGER";
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("grade", grade);
+		map.put("search", search);
+		
+		int listCount = aService.searchMemCount(map);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 15);
+		System.out.println(listCount);
+		map.put("pi", pi);
+		
+		ArrayList<Member> m = aService.searchMem(map);
+		if( m != null) {
+			model.addAttribute("m", m);
+			model.addAttribute("pi", pi);
+			model.addAttribute("loc", request.getRequestURI());
+			return "admin/" + path;
+		} else {
+			throw new AdminException("검색에 실패했습니다.");
+		}
+		
 	}
 }
