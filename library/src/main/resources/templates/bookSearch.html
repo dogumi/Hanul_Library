@@ -17,52 +17,74 @@
     </head>
     <body>
     <!-- <script th:src="@{/js/search.js}"></script> -->
-    <div class="col-md-12">
-        <h1>도서 검색</h1>
-        <div class="col-md-4">
-            <form th:action="@{/book-search}" method="post">
-                <input type="text" th:value="${keyword}" name="keyword" placeholder="도서명 또는 ISBN을 입력해주세요."/>
-                <button th:text="검색" type="submit"/>
-            </form>
-        </div>
-
-        <hr>
-        <div>
-            <table class="table">
-                <tbody>
-                <tr th:each="bookDto : ${bookDtoList}" onclick="selectElement(this)" style="cursor : pointer;" \>
-                    <td><img th:src="@{${bookDto.imageURL}}" width="100" height="150"/></td>
-                    <td th:text="${bookDto.title}">title</td>
-                    <td th:text="${bookDto.author}">authorA</td>
-                </tr>
-                </tbody>
-            </table>
+    
+    <nav th:replace="~{views/common/navbar :: navbar}"></nav>
+    
+    <div class="position-absolute"  style="display: inline-block; margin-top: 200px;">
+        <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                <span class="fs-4">도서관 정보</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="noticeView.bo" class="nav-link link-body-emphasis" aria-current="page">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                        공지사항
+                    </a>
+                </li>
+                <li>
+                    <a href="booksearch.book" class="nav-link active" style="background: #7DA45C;">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                        도서정보
+                    </a>
+                </li>
+            </ul><hr>
         </div>
     </div>
     
-    <script>
-	    function selectElement(selectedElement) {
-	        addDataToForm(selectedElement);
-	        window.close();
-	    }
-	
-	    // 선택된 데이터를 add form 에 추가하는 함수
-	    function addDataToForm(ele) {
-	        console.log('addDateToForm' + ele);
-	
-	        let elements = ele.getElementsByTagName("td");
-	        let data = {
-	            title: elements[1].innerText,
-	            author: elements[2].innerText,
-	            imageURL: elements[0].querySelector('img').getAttribute('src')
-	        };
-	        
-	        // 부모 창으로 element 전달
-	        opener.document.getElementById("add_form_imageURL").value = data.imageURL;
-	        opener.document.getElementById("add_form_title").value = data.title;
-	        opener.document.getElementById("add_form_author").value = data.author;
-	
-	    }
+    
+    <main class="container" style="width: 1050px; height: auto; background: white; padding-top: 200px;" id="wrapper">
+        <h3>도서 검색 상세</h3>
+        <div style="border-bottom: 5px solid #7DA45C;"></div>
+        <div>
+            <table class="table">
+                <thead>
+                	<tr class="text-center">
+                		<th>책 이미지</th>
+                		<th>책 제목</th>
+                		<th>저자</th>
+                		<th>ISBN</th>
+                	</tr>
+                </thead>
+                <tbody>
+	                <tr th:each="bookDto : ${bookDtoList}" onclick="selectElement(this)" style="cursor : pointer;" \>
+	                    <td><img th:src="@{${bookDto.imageURL}}" width="200" height="250"/></td>
+	                    <td th:text="${bookDto.title}">title</td>
+	                    <td th:text="${bookDto.author}">authorA</td>
+	                    <td th:text="${bookDto.isbn}">isbn</td>
+	                </tr>
+                </tbody>
+            </table>
+            <div>
+            	<div>출판사 : [[${publisher}]]</div>
+            	<div>출판일 : [[${pubdate}]]</div>
+            </div>
+            <hr>
+            <div>
+	            <h3>책 소개</h3>
+	            <hr>
+	            <p>[[${description}]]</p>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-top: 50px; padding-bottom: 50px;">
+				<button class="btn btn-secondary me-md-2" type="button" onclick="javascript:history.back();">목록</button>
+			</div>
+        </div>
+    </main>
+    <script th:inline="javascript">
+	 	
     </script>
     </body>
 </html>

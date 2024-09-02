@@ -38,12 +38,6 @@
 				 <!-- 검색 -->
 			    <form class="d-flex" id="searchForm" role="search" style="float: right;">
 			    	<input type="hidden" id="path" name="path" value="memConsumer"/>
-			    	<!-- <select id="category" name="category">
-			    		<option value="memNo">회원번호</option>
-			    		<option value="memId">아이디</option>
-			    		<option value="memName">이름</option>
-			    		<option value="memPhone">전화번호</option>
-			    	</select> -->
 					<input class="form-control me-2 w-100" type="search" placeholder="Search" id="inputSearch" aria-label="Search" >
 					<button class="btn btn-outline-success" id="searchBtn" type="button">Search</button>
 				</form>
@@ -114,6 +108,7 @@
 	<script th:inline="javascript">
 		const path = document.getElementById("path").value;
 		
+		// 계정 비활성화 버튼 클릭 시
 		document.getElementById("offBtn").addEventListener("click", function() {
 	        // 체크된 체크박스를 가져옵니다.
 	        const checkboxes = document.querySelectorAll('input[name="checked"]:checked');
@@ -139,6 +134,8 @@
 	        }
 	    });
 		
+		
+		// 계정 활성화버튼 클릭 시
 		document.getElementById("onBtn").addEventListener("click", function() {
 	        // 체크된 체크박스를 가져옵니다.
 	        const checkboxes = document.querySelectorAll('input[name="checked"]:checked');
@@ -164,7 +161,7 @@
 	        }
 	    });
 		
-		
+		// 등급변경 버튼 클릭 시
 		document.getElementById("gradeChange").addEventListener("click", function() {
 	        // 체크된 체크박스를 가져옵니다.
 	        const checkboxes = document.querySelectorAll('input[name="checked"]:checked');
@@ -190,6 +187,7 @@
 	        }
 	    });
 		
+		// search 버튼 클릭 시
 		document.getElementById("searchBtn").onclick = () => {
 			const search = document.getElementById("inputSearch").value;
 			const path = document.getElementById("path").value;

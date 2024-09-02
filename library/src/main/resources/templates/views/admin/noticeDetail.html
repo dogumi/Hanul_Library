@@ -62,7 +62,11 @@
 				location.href = "notice.adm";
 			}
 			
-			
+			document.getElementById("deleteBtn").onclick = () => {
+				if(confirm("정말 삭제하시겠습니까?")) {
+					location.href = "deleteNotice.adm?noticeNo=" + noticeNo;
+				}
+			}
 		}
    	</script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script>

@@ -64,5 +64,7 @@ public interface AdminService {
 
 	ArrayList<Member> searchMem(HashMap<String, Object> map);
 
+	int deleteNotice(String noticeNo);
+
 
 }

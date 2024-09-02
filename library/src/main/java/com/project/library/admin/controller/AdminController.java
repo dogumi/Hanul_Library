@@ -590,4 +590,17 @@ public class AdminController {
 		}
 		
 	}
+	
+	//관리자페이지 - 공지사항 삭제
+	@GetMapping("deleteNotice.adm")
+	public String deleteNotice(@RequestParam("noticeNo") String noticeNo) {
+		int result = aService.deleteNotice(noticeNo);
+		
+		if(result > 0) {
+			return "redirect:notice.adm";
+		} else {
+			throw new AdminException("공지사항 게시글 삭제 중 오류가 발생했습니다.");
+		}
+		
+	}
 }

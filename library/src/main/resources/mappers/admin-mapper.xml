@@ -145,14 +145,14 @@
 	</update>
 	
 	<select id="searchMemCount" resultType="_int">
-		select count(*)
-		from member
-		where mem_grade = #{grade} 
-		and (
-          mem_id LIKE '%' || ${search} || '%'
-          OR mem_name LIKE '%' || ${search} || '%'
-          OR mem_phone LIKE '%' || ${search} || '%'
-          OR mem_no LIKE '%' || ${search} || '%'
+		  select count(*)
+		  from member
+		  where mem_grade = #{grade}
+		  and (
+	          mem_id LIKE '%' || #{search} || '%' 
+	          OR mem_name LIKE '%' || #{search} || '%'
+	          OR mem_phone LIKE '%' || #{search} || '%'
+	          OR mem_no LIKE '%' || #{search} || '%'
         )
 	</select>
 	
@@ -161,10 +161,17 @@
 		from member
 		where mem_grade = #{grade}
 		and (
-	      mem_id LIKE '%' || ${search} || '%' 
-          OR mem_name LIKE '%' || ${search} || '%'
-          OR mem_phone LIKE '%' || ${search} || '%'
-          OR mem_no LIKE '%' || ${search} || '%'
+	      mem_id LIKE '%' || #{search} || '%' 
+          OR mem_name LIKE '%' || #{search} || '%'
+          OR mem_phone LIKE '%' || #{search} || '%'
+          OR mem_no LIKE '%' || #{search} || '%'
         )
 	</select>
+	
+	
+	<update id="deleteNotice">
+		update notice_board
+		set notice_status = 'N'
+		where notice_no = ${noticeNo}
+	</update>
 </mapper>

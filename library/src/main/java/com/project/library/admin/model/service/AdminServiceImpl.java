@@ -161,6 +161,11 @@ public class AdminServiceImpl implements AdminService{
 		return aMapper.searchMem(map);
 	}
 
+	@Override
+	public int deleteNotice(String noticeNo) {
+		return aMapper.deleteNotice(noticeNo);
+	}
+
 
 
 	
