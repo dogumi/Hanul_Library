@@ -166,6 +166,31 @@ public class AdminServiceImpl implements AdminService{
 		return aMapper.deleteNotice(noticeNo);
 	}
 
+	@Override
+	public int getActiveYCount(HashMap<String, Object> map) {
+		return aMapper.getActiveYCount(map);
+	}
+
+	@Override
+	public int getActiveNCount(HashMap<String, Object> map) {
+		return aMapper.getActiveNCount(map);
+	}
+
+	@Override
+	public ArrayList<Member> activeY(HashMap<String, Object> map, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return aMapper.activeY(map, rowBounds);
+	}
+
+	@Override
+	public ArrayList<Member> activeN(HashMap<String, Object> map, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return aMapper.activeN(map, rowBounds);
+	}
+
+
 
 
 	

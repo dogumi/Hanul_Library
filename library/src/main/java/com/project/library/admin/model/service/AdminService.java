@@ -66,5 +66,16 @@ public interface AdminService {
 
 	int deleteNotice(String noticeNo);
 
+	// 회원관리 Y 정렬
+	int getActiveYCount(HashMap<String, Object> map);
+
+	// 회원관리 N 정렬
+	int getActiveNCount(HashMap<String, Object> map);
+
+	ArrayList<Member> activeY(HashMap<String, Object> map, PageInfo pi);
+
+	ArrayList<Member> activeN(HashMap<String, Object> map, PageInfo pi);
+
+
 
 }

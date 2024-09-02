@@ -3,6 +3,7 @@ package com.project.library.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -601,6 +602,53 @@ public class AdminController {
 		} else {
 			throw new AdminException("공지사항 게시글 삭제 중 오류가 발생했습니다.");
 		}
+	}
+	
+	// 관리자 페이지 - 회원관리 (활성화 상태 필터(검색어 없는 경우))
+	@GetMapping("activeFilter.adm")
+	public String activeFilter(@RequestParam("path") String path, @RequestParam("category") String category, 
+								@RequestParam(value="page", defaultValue="1") int currentPage,
+								Model model, HttpServletRequest request) {
+		String grade = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int listCount = 0;
+		PageInfo pi = null;
+		ArrayList<Member> m = null;
 		
+		if (path.equals("memConsumer")) {
+			grade = "CONSUMER";
+			map.put("grade", grade);
+		} else if (path.equals("memManager")) {
+			grade = "MANAGER";
+			map.put("grade", grade);
+		}
+		
+		if(category.equals("Y")) {
+			map.put("category", category);
+			listCount = aService.getActiveYCount(map);
+			pi = Pagination.getPageInfo(currentPage, listCount, 15);
+			m = aService.activeY(map, pi);
+			
+		} else if(category.equals("N")) {
+			map.put("category", category);
+			listCount = aService.getActiveNCount(map);
+			pi = Pagination.getPageInfo(currentPage, listCount, 15);
+			m = aService.activeN(map, pi);
+		} else {
+			listCount = aService.getMemCount(grade);
+			pi = Pagination.getPageInfo(currentPage, listCount, 15);
+			m = aService.selectMem(grade, pi);
+		}
+		
+		if(m != null) {
+			model.addAttribute("m", m);
+			model.addAttribute("pi", pi);
+			model.addAttribute("loc", request.getRequestURI());
+			model.addAttribute("category", category);
+			
+			return "admin/" + path;
+		} else {
+			throw new AdminException("목록을 불러오는 중 오류가 발생했습니다.");
+		}
 	}
 }

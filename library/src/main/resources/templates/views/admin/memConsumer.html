@@ -53,7 +53,13 @@
 							<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">이름</th>
 							<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">전화번호</th>
 							<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">이메일</th>
-							<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">활성화상태</th>
+							<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">
+								<select id='activeFilter' name='active' style="text-align: center; background-color: #fff;">
+									<option value="all" th:selected='${category == "all"}'>전체</option>
+							        <option value="Y" th:selected='${category == "Y"}'>Y</option>
+							        <option value="N" th:selected='${category == "N"}'>N</option>
+								</select>
+							</th>
 							<th scope="col" style="border-right: 1px solid gainsboro; background-color: #F8F8F8;">회원등급</th>
 							<th scope="col" style="background-color: #F8F8F8;">가입날짜</th>
 							
@@ -194,6 +200,15 @@
 			
 			location.href = "searchMem.adm?search=" + search + "&path=" + path + "&page=" + /*[[${pi.currentPage}]]*/1;
 		}
+		
+		// 활성화 상태 변경 시
+		document.getElementById('activeFilter').addEventListener('change', function(){
+			const search = document.getElementById("inputSearch").value;
+			console.log(search);
+	   		/*<![CDATA[*/
+	   		location.href = 'activeFilter.adm?category=' + this.value + "&path=" + path +  "&page=" + /*[[${pi.currentPage}]]*/1;
+			/*]]>*/
+		})
 	</script>
 </body>
 </html>

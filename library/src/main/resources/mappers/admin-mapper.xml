@@ -174,4 +174,28 @@
 		set notice_status = 'N'
 		where notice_no = ${noticeNo}
 	</update>
+	
+	<select id="getActiveYCount" resultType="_int">
+	 	select count(*)
+	 	from member
+	 	where mem_grade = #{grade} and mem_active = 'Y'
+	</select>
+	
+	<select id="getActiveNCount" resultType="_int">
+		select count(*)
+		from member
+		where mem_grade = #{grade} and mem_active = 'N'
+	</select>
+	
+	<select id="activeY" resultType="Member">
+		select *
+		from member
+		where mem_grade = #{grade} and mem_active = 'Y'
+	</select>
+	
+	<select id="activeN" resultType="Member">
+		select *
+		from member
+		where mem_grade = #{grade} and mem_active = 'N'
+	</select>
 </mapper>

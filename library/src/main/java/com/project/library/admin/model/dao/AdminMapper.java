@@ -71,6 +71,16 @@ public interface AdminMapper {
 
 	int deleteNotice(String noticeNo);
 
+	int activeFilterCount(HashMap<String, Object> map);
+
+	int getActiveYCount(HashMap<String, Object> map);
+
+	int getActiveNCount(HashMap<String, Object> map);
+
+	ArrayList<Member> activeY(HashMap<String, Object> map, RowBounds rowBounds);
+
+	ArrayList<Member> activeN(HashMap<String, Object> map, RowBounds rowBounds);
+
 	
 	
 }
