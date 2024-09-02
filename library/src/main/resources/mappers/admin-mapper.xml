@@ -42,24 +42,26 @@
 	<select id="getNoticeListCount" resultType="_int">
 		select count(*)
 		from notice_board
+		where notice_status = 'Y'
 	</select>
 	
 	<select id="selectNotice" resultType="Notice">
 		select *
 		from notice_board
+		where notice_status = 'Y'
 		order by notice_no desc
 	</select>
 	
 	<select id="noticeListCount" resultType="_int">
 		select count(*)
 		from notice_board
-		where notice_category = #{cate}
+		where notice_category = #{cate} and notice_status = 'Y'
 	</select>
 	
 	<select id="selectNoticeList" resultType="Notice">
 		select *
 		from notice_board
-		where notice_category = #{cate}
+		where notice_category = #{cate} and notice_status = 'Y'
 		order by notice_no desc
 	</select>
 	
@@ -198,4 +200,10 @@
 		from member
 		where mem_grade = #{grade} and mem_active = 'N'
 	</select>
+	
+	<update id="checkDeleteNotice">
+		update notice_board
+		set notice_status = 'N'
+		where notice_no = ${noticeNo}
+	</update>
 </mapper>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 관리</title>
 </head>
 <body>
 	<div th:replace="~{common/navbar :: navbar}"></div>
@@ -40,7 +40,7 @@
 						<tbody>
 							<tr th:each="list : ${list}">
 								<td><input class="form-check-input" type="checkbox" name="checked" id="flexCheckDefault"></td>
-								<td>[[${list.noticeNo}]]</td>
+								<td><input type="hidden" name="noticeNo" th:value="${list.noticeNo}">[[${list.noticeNo}]]</td>
 								<td>[[${list.noticeCategory}]]</td>
 								<td>[[${list.noticeTitle}]]</td>
 								<td>관리자</td>
@@ -51,6 +51,7 @@
 					
 					<div class="d-grid gap-1 d-md-flex justify-content-md-end">
 						<button class="btn me-md-2" id="writeBtn" type="button" style="background: #7DA45C; color: white;">공지사항 작성</button>
+						<button class="btn btn-danger me-md-2" id="deleteBtn" type="button">삭제</button>
 					</div>
 					
 					
@@ -95,19 +96,51 @@
 		const tds = tbody.querySelectorAll('td');
 		console.log(tds);
 		for(const td of tds){
-			td.addEventListener('click', function(){
-				const trTds = this.parentElement.querySelectorAll('td');
-				const noticeNo = trTds[0].innerText;
-				
-				/*<![CDATA[*/
-				location.href="noticeDetail.adm?noticeNo=" + noticeNo + "&page=" + /*[[${pi.currentPage}]]*/1;
-				/*]]>*/
+			td.addEventListener('click', function(event) {
+		        // 체크박스를 클릭했을 경우 이벤트 전파를 막아 noticeDetail로 넘어가지 않도록 함
+		        if (event.target.tagName === 'INPUT' && event.target.type === 'checkbox') {
+		            event.stopPropagation();
+		            return;
+		        }
+		        const trTds = this.parentElement.querySelectorAll('td');
+		        const noticeNo = trTds[1].innerText;
+		        /*<![CDATA[*/
+		        location.href = "noticeDetail.adm?noticeNo=" + noticeNo + "&page=" + /*[[${pi.currentPage}]]*/1;
+		        /*]]>*/
 			})
 		}
 		
 		document.getElementById("writeBtn").onclick = () => {
 			location.href = 'writeNoticeView.adm';
 		}
+		
+		
+		// 삭제버튼 클릭 시
+		document.getElementById("deleteBtn").addEventListener("click", function() {
+		    // 체크된 체크박스를 가져옵니다.
+		    const checkboxes = document.querySelectorAll('input[name="checked"]:checked');
+		    const noticeNos = [];
+
+		    // 체크된 항목의 noticeNo를 배열에 추가합니다.
+		    checkboxes.forEach(function(checkbox) {
+		        const row = checkbox.closest('tr');
+		        const noticeNo = row.querySelector('input[name="noticeNo"]').value;
+		        noticeNos.push(noticeNo);
+		    });
+
+		    // noticeNo 배열이 비어있는지 확인합니다.
+		    if (noticeNos.length === 0) {
+		        alert("삭제할 게시글을 선택하세요.");
+		        return;
+		    }
+
+		    // 확인 알림창을 띄웁니다.
+		    const confirmDeactivate = confirm("정말 게시글을 삭제하시겠습니까?");
+		    if (confirmDeactivate) {
+		        location.href = "checkDeleteNotice.adm?noticeNos=" + noticeNos.join(",") + "&page=" + /*[[${pi.currentPage}]]*/1;
+		    }
+		});
+		
 		
 		
    	</script>

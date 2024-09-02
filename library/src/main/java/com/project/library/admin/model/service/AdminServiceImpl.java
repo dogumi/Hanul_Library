@@ -190,6 +190,11 @@ public class AdminServiceImpl implements AdminService{
 		return aMapper.activeN(map, rowBounds);
 	}
 
+	@Override
+	public int checkDeleteNotice(String noticeNo) {
+		return aMapper.checkDeleteNotice(noticeNo);
+	}
+
 
 
 

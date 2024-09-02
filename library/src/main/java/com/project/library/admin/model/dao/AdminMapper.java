@@ -81,6 +81,8 @@ public interface AdminMapper {
 
 	ArrayList<Member> activeN(HashMap<String, Object> map, RowBounds rowBounds);
 
+	int checkDeleteNotice(String noticeNo);
+
 	
 	
 }

@@ -651,4 +651,22 @@ public class AdminController {
 			throw new AdminException("목록을 불러오는 중 오류가 발생했습니다.");
 		}
 	}
+	
+	@GetMapping("checkDeleteNotice.adm")
+	public String checkDeleteNotice(@RequestParam("noticeNos") List<String> noticeNos) {
+		
+		System.out.println(noticeNos);
+		int result = 0;
+		for(int i = 0; i < noticeNos.size(); i++) {
+			String noticeNo = noticeNos.get(i);
+			result = aService.checkDeleteNotice(noticeNo);
+		}
+		
+		if(result > 0) {
+			return "redirect:notice.adm";
+		} else {
+			throw new AdminException("공지사항 게시글 삭제 중 오류가 발생했습니다.");
+		}
+		
+	}
 }

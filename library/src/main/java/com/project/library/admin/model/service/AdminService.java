@@ -76,6 +76,8 @@ public interface AdminService {
 
 	ArrayList<Member> activeN(HashMap<String, Object> map, PageInfo pi);
 
+	int checkDeleteNotice(String noticeNo);
+
 
 
 }
