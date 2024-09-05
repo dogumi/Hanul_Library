@@ -531,7 +531,8 @@ public class AdminController {
 	
 	// 관리자페이지 - 회원관리 (회원등급 변경)
 	@GetMapping("changeGrade.adm")
-	public String changeGrade(@RequestParam("memberNumbers") List<String> memberNumbers, @RequestParam("page") int page, @RequestParam("path") String path, Model model) {
+	public String changeGrade(@RequestParam("memberNumbers") List<String> memberNumbers, @RequestParam("page") int page, 
+								@RequestParam("path") String path, Model model) {
 		
 		String grade = null;
 		int result = 0;
